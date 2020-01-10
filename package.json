@@ -2,6 +2,9 @@
   "name": "easy-notes-app",
   "version": "1.0.0",
   "description": "Notes App",
+  "engines": {
+    "node": "10"
+  },
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -16,6 +19,8 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
-    "mongoose": "^5.6.10"
+    "firebase-admin": "^8.9.0",
+    "mongoose": "^5.8.6",
+    "nvm": "0.0.4"
   }
 }
