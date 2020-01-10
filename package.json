@@ -2,15 +2,10 @@
   "name": "easy-notes-app",
   "version": "1.0.0",
   "description": "Notes App",
-  "engines": {
-    "node": "10"
-  },
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-    "dev": "node server.js",
-    "build": "next build",
-    "postinstall": "npm run build",
-    "start": "NODE_ENV=production node server.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "keywords": [
     "Express",
