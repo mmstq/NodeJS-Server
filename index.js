@@ -59,7 +59,7 @@ app.delete('/notes/:noteId', notes.delete);
 //     });
 // });
 
-app.get('/', (req, res) => res.render('pages/index'));
+app.get('/', (req, res) => res.sendFile('pages/pageFirst.html'));
 
 
 // listen for requests
