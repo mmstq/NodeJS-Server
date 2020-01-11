@@ -1,4 +1,5 @@
-const PORT = process.env.PORT || 3000;
+const path = require('path')
+const PORT = process.env.PORT || 5000
 const express = require('express');
 const bodyParser = require('body-parser');
 
@@ -10,8 +11,12 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 
+app.use(express.static(path.join(__dirname, 'public')))
+  .set('views', path.join(__dirname, 'views'))
+  .set('view engine', 'ejs');
+
 // Configuring the database
-const dbConfig = require('../nodeserver/config/database.config');
+const dbConfig = require('./config/database.config');
 const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
@@ -30,7 +35,7 @@ mongoose.connect(dbConfig.url, {
 // parse requests of content-type - application/json
 app.use(bodyParser.json())
 
-const notes = require('../nodeserver/app/controller/note.controller');
+const notes = require('./app/controller/note.controller');
 
 
 // create a new note
@@ -48,11 +53,13 @@ app.put('/notes/:noteId', notes.update);
 app.delete('/notes/:noteId', notes.delete);
 
 // define a simple route
-app.get('/', (req, res) => {
-    res.json({
-        "message": "Welcome to EasyNotes application."
-    });
-});
+// app.get('/', (req, res) => {
+//     res.json({
+//         "message": "Welcome to EasyNotes application."
+//     });
+// });
+
+app.get('/', (req, res) => res.render('pages/index'));
 
 
 // listen for requests

@@ -3,14 +3,12 @@
   "version": "1.0.0",
   "description": "Notes App",
   "engines": {
-    "node": "10"
+    "node": "12.x"
   },
   "main": "index.js",
   "scripts": {
-    "dev": "next",
-    "build": "next build",
-    "start": "next start",
-    "heroku-postbuild": "next build"
+    "start": "node index.js",
+    "test": "node test.js"
   },
   "keywords": [
     "Express",
@@ -22,11 +20,14 @@
     "body-parser": "^1.19.0",
     "core-js": "^3.6.3",
     "express": "^4.17.1",
-    "lodash": "^4.17.4",
-    "mongoose": "^5.8.6",
-    "next": "^9.1.7",
-    "nvm": "^0.0.4",
-    "react": "^16.6.0",
-    "react-dom": "^16.6.0"
+    "mongoose": "^5.8.6"
+  },
+  "devDependencies": {
+    "request": "^2.81.0",
+    "tape": "^4.7.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mmstq/NodeJS-Server"
   }
 }
