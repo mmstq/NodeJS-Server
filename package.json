@@ -3,12 +3,14 @@
   "version": "1.0.0",
   "description": "Notes App",
   "engines": {
-    "node": "8"
+    "node": "10"
   },
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "heroku-postbuild": "next build"
   },
   "keywords": [
     "Express",
@@ -20,7 +22,11 @@
     "body-parser": "^1.19.0",
     "core-js": "^3.6.3",
     "express": "^4.17.1",
+    "lodash": "^4.17.4",
     "mongoose": "^5.8.6",
-    "nvm": "^0.0.4"
+    "next": "^9.1.7",
+    "nvm": "^0.0.4",
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0"
   }
 }
