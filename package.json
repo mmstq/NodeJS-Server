@@ -4,9 +4,10 @@
   "description": "Notes App",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prestart": "next build",
-    "start": "next start -p ${PORT}"
+    "dev": "index",
+		"build": "index build",
+		"start": "index start",
+		"heroku-postbuild": "index build"
   },
   "keywords": [
     "Express",
@@ -17,7 +18,10 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
-    "firebase-admin": "^8.9.0",
+    "lodash": "^4.17.4",
+		"next": "^3.0.0-beta16",
+		"react": "^15.6.1",
+		"react-dom": "^15.6.1",
     "mongoose": "^5.8.6",
     "nvm": "0.0.4"
   }
