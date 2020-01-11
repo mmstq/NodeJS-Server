@@ -11,9 +11,9 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 
-app.use(express.static(path.join(__dirname, 'public')))
-  .set('views', path.join(__dirname, 'views'))
-  .set('view engine', 'ejs');
+// app.use(express.static(path.join(__dirname, 'public')))
+//   .set('views', path.join(__dirname, 'views'))
+//   .set('view engine', 'ejs');
 
 // Configuring the database
 const dbConfig = require('./config/database.config');
@@ -37,9 +37,6 @@ app.use(bodyParser.json())
 
 const notes = require('./app/controller/note.controller');
 
-
-// create a new note
-
 app.post('/notes', notes.create);
 
 app.get('/notes', notes.findAll);
@@ -51,13 +48,6 @@ app.put('/notes/:noteId', notes.update);
 
 // Delete a Note with noteId
 app.delete('/notes/:noteId', notes.delete);
-
-// define a simple route
-// app.get('/', (req, res) => {
-//     res.json({
-//         "message": "Welcome to EasyNotes application."
-//     });
-// });
 
 app.get('/', (req, res) => res.sendFile('./views/pages/pageFirst.html', {root:'.'}));
 
