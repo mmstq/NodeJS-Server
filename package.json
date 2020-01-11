@@ -2,13 +2,15 @@
   "name": "easy-notes-app",
   "version": "1.0.0",
   "description": "Notes App",
-  "engines": {"node":"10"},
+  "engines": {
+    "node": "8"
+  },
   "main": "index.js",
   "scripts": {
     "dev": "next",
-		"build": "next build",
-		"start": "next start",
-		"heroku-postbuild": "next build"
+    "build": "next build",
+    "start": "next start",
+    "heroku-postbuild": "next build"
   },
   "keywords": [
     "Express",
@@ -18,9 +20,13 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "core-js": "^3.6.3",
     "express": "^4.17.1",
-		"next": "^3.0.0-beta16",
+    "lodash": "^4.17.4",
     "mongoose": "^5.8.6",
-    "nvm": "0.0.4"
+    "next": "^9.1.7",
+    "nvm": "0.0.4",
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0"
   }
 }
