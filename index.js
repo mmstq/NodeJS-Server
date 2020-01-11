@@ -66,5 +66,3 @@ app.get('/', (req, res) => res.render('pages/index'));
 app.listen(PORT, () => {
     console.log("Server is listening on port 3000");
 });
-
-//lksdfl
