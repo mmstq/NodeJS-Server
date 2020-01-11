@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 // Configuring the database
-const dbConfig = require('./database.config.js');
+const dbConfig = require('../nodeserver/config/database.config');
 const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
@@ -30,7 +30,7 @@ mongoose.connect(dbConfig.url, {
 // parse requests of content-type - application/json
 app.use(bodyParser.json())
 
-const notes = require('./note.controller.js');
+const notes = require('../nodeserver/app/controller/note.controller');
 
 
 // create a new note
@@ -57,5 +57,6 @@ app.get('/', (req, res) => {
 
 // listen for requests
 app.listen(PORT, () => {
+
     console.log("Server is listening on port 3000");
 });
