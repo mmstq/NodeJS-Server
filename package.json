@@ -2,6 +2,7 @@
   "name": "easy-notes-app",
   "version": "1.0.0",
   "description": "Notes App",
+  "engines": {"node":"10"},
   "main": "index.js",
   "scripts": {
     "dev": "index",
