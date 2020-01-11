@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 // Configuring the database
-const dbConfig = require('./config/database.config.js');
+const dbConfig = require('./database.config.js');
 const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
@@ -30,7 +30,7 @@ mongoose.connect(dbConfig.url, {
 // parse requests of content-type - application/json
 app.use(bodyParser.json())
 
-const notes = require('./app/controller/note.controller.js');
+const notes = require('./note.controller.js');
 
 
 // create a new note

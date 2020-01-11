@@ -1,4 +1,4 @@
-const Note = require('/home/lekr0/Desktop/Web/node-easy-notes-app/app/models/note.model');
+const Note = require('./note.model.js');
 
 exports.create = async (req, res) => {
 
