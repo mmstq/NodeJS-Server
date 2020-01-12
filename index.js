@@ -1,7 +1,8 @@
-const path = require('path')
 const PORT = process.env.PORT || 5000
 const express = require('express');
 const bodyParser = require('body-parser');
+const user = require('./app/routes/user.routes');
+const checkAuth = require('./middleware/check-auth');
 
 // create express app
 const app = express();
@@ -10,10 +11,6 @@ const app = express();
 app.use(bodyParser.urlencoded({
     extended: false
 }));
-
-// app.use(express.static(path.join(__dirname, 'public')))
-//   .set('views', path.join(__dirname, 'views'))
-//   .set('view engine', 'ejs');
 
 // Configuring the database
 const dbConfig = require('./config/database.config');
@@ -37,17 +34,19 @@ app.use(bodyParser.json())
 
 const notes = require('./app/controller/note.controller');
 
-app.post('/notes', notes.create);
+app.use('/user',user);
 
-app.get('/notes', notes.findAll);
+app.post('/notes', checkAuth, notes.create);
 
-app.get('/notes/:noteId', notes.findOne);
+app.get('/notes', checkAuth, notes.findAll);
+
+app.get('/notes/:noteId', checkAuth, notes.findOne);
 
 // Update a Note with noteId
-app.put('/notes/:noteId', notes.update);
+app.put('/notes/:noteId', checkAuth, notes.update);
 
 // Delete a Note with noteId
-app.delete('/notes/:noteId', notes.delete);
+app.delete('/notes/:noteId', checkAuth, notes.delete);
 
 app.get('/', (req, res) => res.sendFile('./views/pages/pageFirst.html', {root:'.'}));
 
