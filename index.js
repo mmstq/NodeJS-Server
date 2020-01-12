@@ -38,7 +38,7 @@ app.use('/user',user);
 
 app.post('/notes', checkAuth, notes.create);
 
-app.get('/notes', notes.findAll);
+app.get('/notes', checkAuth, notes.findAll);
 
 app.get('/notes/:noteId', checkAuth, notes.findOne);
 
