@@ -29,7 +29,7 @@ exports.findAll = async (req, res) => {
     await Note.find()
         .then(notes => {
             res.send(notes);
-            console.log(notes.body)
+            console.log(notes)
         }).catch(err => {
             res.status(500).send({
                 message: err.message || "Some error occurred while retrieving notes."
