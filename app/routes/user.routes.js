@@ -16,7 +16,7 @@ router.post('/signup', (req, res, next) => {
         .then(user => {
             if (user.length >= 1) {
                 return res.status(409).json({
-                    message: 'User exists'
+                    message: 'There is already an account associated with this email'
                 });
             } else {
                 bcrypt.hash(req.body.password, 10, (err, hash) => {
@@ -30,13 +30,13 @@ router.post('/signup', (req, res, next) => {
                             email: req.body.email,
                             password: hash,
                             username: req.body.username,
-                            name: req.body.name
+                            name: req.body.name,
                         });
                         user
                             .save()
                             .then(result => {
                                 res.status(201).json({
-                                    message: 'User Created Successfully'
+                                    message: 'User registration successful'
                                 });
                             })
                             .catch(err => {
@@ -64,7 +64,7 @@ router.post('/login', (req, res, next) => {
         .then(user => {
             if (user.length < 1) {
                 return res.status(404).json({
-                    message: 'Invalid email address'
+                    message: 'INo user associated with this email'
                 });
             }
             bcrypt.compare(req.body.password, user.password, (err, resource) => {
