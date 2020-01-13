@@ -60,14 +60,14 @@ router.post('/signup', (req, res, next) => {
 });
 
 router.post('/login', (req, res, next) => {
-    User.find({ email: req.body.email }).exec()
+    User.findOne({ email: req.body.email }).exec()
         .then(user => {
             if (user.length < 1) {
                 return res.status(404).json({
                     message: 'Invalid email address'
                 });
             }
-            bcrypt.compare(req.body.password, user[0].password, (err, resource) => {
+            bcrypt.compare(req.body.password, user.password, (err, resource) => {
                 if (err) {
                     return res.status(404).json({
                         message: 'Auth failed'
@@ -75,9 +75,9 @@ router.post('/login', (req, res, next) => {
                 }
                 if (resource) {
                     const token = jwt.sign({
-                        email: user[0].email,
-                        userId: user[0].ObjectId,
-                        username: user[0].username
+                        email: user.email,
+                        userId: user.ObjectId,
+                        username: user.username
                     },
                     '@qwerty312',{
                         expiresIn:'1h'
