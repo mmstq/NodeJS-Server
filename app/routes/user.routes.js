@@ -9,12 +9,12 @@ const User = require('../models/users.model');
 
 router.post('/signup', (req, res, next) => {
 
-    User.find({
+    User.findOne({
         email: req.body.email
     }).
         exec()
         .then(user => {
-            if (user.length >= 1) {
+            if (user) {
                 return res.status(409).json({
                     message: 'There is already an account associated with this email'
                 });
@@ -64,7 +64,7 @@ router.post('/login', (req, res, next) => {
         .then(user => {
             if (user.length < 1) {
                 return res.status(404).json({
-                    message: 'INo user associated with this email'
+                    message: 'No user associated with this email'
                 });
             }
             bcrypt.compare(req.body.password, user.password, (err, resource) => {
