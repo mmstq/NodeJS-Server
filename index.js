@@ -8,10 +8,6 @@ const checkAuth = require('./middleware/check-auth');
 const app = express();
 const http = require('http').createServer(app);
 
-
-
-
-
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({
     extended: false
@@ -55,6 +51,7 @@ app.delete('/notes/:noteId', checkAuth, notes.delete);
 
 app.get('/', (req, res) => res.sendFile('./views/pages/pageFirst.html', {root:'.'}));
 
+// Socket for Fast Chatting
 const socketIO = require('socket.io')(http);
 
 socketIO.on('connection', (socket)=>{
