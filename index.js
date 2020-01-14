@@ -19,6 +19,8 @@ const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 
+mongoose.set('useCreateIndex', true);
+
 // Connecting to the database
 mongoose.connect(dbConfig.url, {
     useNewUrlParser: true,
@@ -29,6 +31,7 @@ mongoose.connect(dbConfig.url, {
     console.log('Could not connect to the database. Exiting now...', err);
     process.exit();
 });
+
 
 // parse requests of content-type - application/json
 app.use(bodyParser.json())
@@ -61,7 +64,6 @@ socketIO.on('connection', (socket)=>{
         socket.emit('receive_message', data);
     });
 });
-
 
 // listen for requests
 http.listen(PORT, () => {
