@@ -6,6 +6,11 @@ const checkAuth = require('./middleware/check-auth');
 
 // create express app
 const app = express();
+const http = require('http').createServer(app);
+
+
+
+
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({
@@ -49,6 +54,16 @@ app.put('/notes/:noteId', checkAuth, notes.update);
 app.delete('/notes/:noteId', checkAuth, notes.delete);
 
 app.get('/', (req, res) => res.sendFile('./views/pages/pageFirst.html', {root:'.'}));
+
+const socketIO = require('socket.io')(http);
+
+socketIO.on('connection', (socket)=>{
+    console.log('data');
+    socket.on('send_message', (data)=>{
+        console.log(data);
+        socket.emit('receive_message', data);
+    });
+});
 
 
 // listen for requests
