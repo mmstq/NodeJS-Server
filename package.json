@@ -26,10 +26,6 @@
     "mongoose": "^5.8.6",
     "socket.io": "^2.3.0"
   },
-  "devDependencies": {
-    "request": "^2.81.0",
-    "tape": "^4.7.0"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/mmstq/NodeJS-Server"
