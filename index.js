@@ -66,6 +66,6 @@ socketIO.on('connection', (socket)=>{
 });
 
 // listen for requests
-http.listen(PORT, () => {
+http.listen(3000, () => {
     console.log("Server is listening on port 3000");
 });
