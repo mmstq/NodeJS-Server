@@ -13,6 +13,7 @@
     "Express",
     "RestAPI"
   ],
+  "devDependencies": {},
   "author": "mmstq",
   "license": "MIT",
   "dependencies": {
