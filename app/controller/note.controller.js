@@ -14,7 +14,9 @@ exports.create = async (req, res) => {
     });
 
     await note.save().then(data => {
-        res.send(data);
+        res.status(201).json({
+            message: "Note added to database"
+        });
     }).
     catch(err => {
         res.status(500).send({
@@ -45,14 +47,14 @@ exports.findOne = async (req, res) => {
         .then(note => {
             if (!note) {
                 return res.status(404).send({
-                    message: "Note not found with id " + req.params.noteId
+                    message: "Not found"
                 });
             }
             res.send(note);
         }).catch(err => {
             if (err.kind === 'ObjectId') {
                 return res.status(404).send({
-                    message: "Note not found with id " + req.params.noteId
+                    message: err.message || "Not found"
                 });
             }
             return res.status(500).send({
@@ -83,18 +85,18 @@ exports.update = async (req, res) => {
         .then(note => {
             if (!note) {
                 return res.status(404).send({
-                    message: "Note not found with id " + req.params.noteId
+                    message: "Not found"
                 });
             }
             res.send(note);
         }).catch(err => {
             if (err.kind === 'ObjectId') {
                 return res.status(404).send({
-                    message: "Note not found with id " + req.params.noteId
+                    message: err.message || "Note not found with id " + req.params.noteId
                 });
             }
             return res.status(500).send({
-                message: "Error updating note with id " + req.params.noteId
+                message: "Error updating note"
             });
         });
 
@@ -107,7 +109,7 @@ exports.delete = async (req, res) => {
         .then(note => {
             if (!note) {
                 return res.status(404).send({
-                    message: "Note not found with id " + req.params.noteId
+                    message: "Not found"
                 });
             }
             res.send({
@@ -116,13 +118,11 @@ exports.delete = async (req, res) => {
         }).catch(err => {
             if (err.kind === 'ObjectId' || err.name === 'NotFound') {
                 return res.status(404).send({
-                    message: "Note not found with id " + req.params.noteId
+                    message: err.message || "Not found"
                 });
             }
             return res.status(500).send({
-                message: "Could not delete note with id " + req.params.noteId
+                message: "Could not delete note. Please try again"
             });
         });
-
-
 };
