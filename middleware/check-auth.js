@@ -8,10 +8,8 @@ module.exports = (req, res, next)=>{
         next();
     }catch(error){
         res.status(401).json({
-            message: 'Authorization required for this action'
+            message: error.message || 'Authorization required for this action'
         });
-        next(error);
-        console.log(error);
     }
     
 };
