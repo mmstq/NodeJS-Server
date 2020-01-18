@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const user = require('./app/routes/user.routes');
 const checkAuth = require('./middleware/check-auth');
 
+
 // create express app
 const app = express();
 const http = require('http').createServer(app);
@@ -58,10 +59,17 @@ app.get('/', (req, res) => res.sendFile('./views/pages/pageFirst.html', {root:'.
 const socketIO = require('socket.io')(http);
 
 socketIO.on('connection', (socket)=>{
-    console.log('data');
-    socket.on('send_message', (data)=>{
+    console.log('connected');
+    socket.on('userNameCheck', (data)=>{
         console.log(data);
-        socket.emit('receive_message', data);
+        user.findOne({username:data},'username',(err, username)=>{
+            if(err){
+                socket.emit('result', false);
+            }else{
+                socket.emit('result', true);
+            }
+        });
+
     });
 });
 
