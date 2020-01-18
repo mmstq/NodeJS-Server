@@ -26,7 +26,7 @@ mongoose.set('useCreateIndex', true);
 // Connecting to the database
 mongoose.connect(dbConfig.url, {
     useNewUrlParser: true,
-    useUnifiedTopology:true
+    useUnifiedTopology: true
 }).then(() => {
     console.log("Successfully connected to the database");
 }).catch(err => {
@@ -40,7 +40,7 @@ app.use(bodyParser.json())
 
 const notes = require('./app/controller/note.controller');
 
-app.use('/user',user);
+app.use('/user', user);
 
 app.post('/notes', checkAuth, notes.create);
 
@@ -54,23 +54,30 @@ app.put('/notes/:noteId', checkAuth, notes.update);
 // Delete a Note with noteId
 app.delete('/notes/:noteId', checkAuth, notes.delete);
 
-app.get('/', (req, res) => res.sendFile('./views/pages/pageFirst.html', {root:'.'}));
+app.get('/', (req, res) => res.sendFile('./views/pages/pageFirst.html', { root: '.' }));
 
 // Socket for Fast Chatting
 const socketIO = require('socket.io')(http);
 
-socketIO.on('connection', (socket)=>{
+socketIO.on('connection', (socket) => {
     console.log('connected');
-    socket.on('userNameCheck', (data)=>{
+    socket.on('userNameCheck', (data) => {
         console.log(data);
-        model.findOne({username:data},'username').exec()
-        .then(username=>{
-            socket.emit('result', true);
+        model.findOne({ username: data }, 'username').exec()
+            .then(username => {
+                if (username) {
+                    console.log(username);
+                    socket.emit('result', true);
+                }else{
+                    console.log('not found username');
+                    socket.emit('result', false)
+                }
 
-        }).catch(err=>{
-            socket.emit('result', false);
+            }).catch(err => {
+                console.log(err);
+                socket.emit('result', false);
 
-        });
+            });
 
     });
 });
