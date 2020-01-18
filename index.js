@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const user = require('./app/routes/user.routes');
 const checkAuth = require('./middleware/check-auth');
+const model = require('./app/models/users.model')
 
 
 // create express app
@@ -62,12 +63,13 @@ socketIO.on('connection', (socket)=>{
     console.log('connected');
     socket.on('userNameCheck', (data)=>{
         console.log(data);
-        user.findOne({username:data},'username',(err, username)=>{
-            if(err){
-                socket.emit('result', false);
-            }else{
-                socket.emit('result', true);
-            }
+        model.findOne({username:data},'username').exec()
+        .then(username=>{
+            socket.emit('result', true);
+
+        }).catch(err=>{
+            socket.emit('result', false);
+
         });
 
     });
