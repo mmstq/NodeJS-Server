@@ -13,10 +13,11 @@ const User = require('../models/users.model');
 function sendEmail(email, OTP){
 
     var transporter = nodemailer.createTransport({
-        service: 'gmail',
+        host: 'smtp.sendgrid.net',
+        port:587,
         auth: {
-          user: 'testdeveloper151@gmail.com',
-          pass: '@lesswire9'
+          user: 'mmstq',
+          pass: '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'
         }
       });
       var mailOptions = {
