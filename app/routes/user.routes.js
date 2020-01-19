@@ -56,7 +56,6 @@ router.post('/forgotPassword', (req, res, next)=>{
                 email: user[0].email,
                 OTP: otp
             });
-            
         }else{
 
             res.status(HttpStatus.NOT_FOUND).json({
