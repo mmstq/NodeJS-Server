@@ -3,9 +3,74 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const HttpStatus = require('http-status-codes');
+const nodemailer = require('nodemailer');
+
 
 
 const User = require('../models/users.model');
+
+function sendEmail(email, OTP){
+
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'testdeveloper151@gmail.com',
+          pass: '@lesswire9'
+        }
+      });
+      var mailOptions = {
+        from: 'testdeveloper151@gmail.com',
+        to: email,
+        subject: 'Note App Password Forgot',
+        text: `Your Note App OTP to reset password is: ${OTP}`
+        // html: '<h1>Hi People</h1><p>Your Message</p>'
+      };
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      });
+}
+
+function generateOTP(){
+    return Math.floor(Math.random()*(99999-10000)+10000);
+}
+
+router.post('/forgotPassword', (req, res, next)=>{
+    console.log('forgot');
+    User.find({
+        email: req.body.email
+    }).exec()
+    .then(user=>{
+        console.log(user);
+        if(user.length > 0){
+            var otp = generateOTP();
+            sendEmail(user[0].email, otp);
+            res.status(HttpStatus.OK).json({
+                username: user[0].username,
+                id: user[0]._id,
+                name: user[0].name,
+                email: user[0].email,
+                OTP: otp
+            });
+            
+        }else{
+
+            res.status(HttpStatus.NOT_FOUND).json({
+                message: "User Not Found"
+            });
+        }
+    })
+    .catch(err=>{
+        console.log(err);
+        res.status(500).json({
+            message: err
+        });
+    });
+});
 
 router.post('/signup', (req, res, next) => {
 
