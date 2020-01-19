@@ -20,7 +20,7 @@ function sendEmail(email, OTP){
         }
       });
       var mailOptions = {
-        from: 'Notes App Password',
+        from: 'testdeveloper151@gmail.com',
         to: email,
         subject: 'Note App Password Forgot',
         text: `Your Note App OTP to reset password is: ${OTP}`
@@ -48,7 +48,7 @@ router.post('/forgotPassword', (req, res, next)=>{
         console.log(user);
         if(user.length > 0){
             var otp = generateOTP();
-            sendEmail(user[0].email, otp);
+            sendEmail(req.body.email, otp);
             res.status(HttpStatus.OK).json({
                 username: user[0].username,
                 id: user[0]._id,
