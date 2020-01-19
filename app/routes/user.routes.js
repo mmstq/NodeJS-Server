@@ -20,7 +20,7 @@ function sendEmail(email, OTP){
         }
       });
       var mailOptions = {
-        from: 'testdeveloper151@gmail.com',
+        from: 'Note App',
         to: email,
         subject: 'Note App Password Forgot',
         text: `Your Note App OTP to reset password is: ${OTP}`
