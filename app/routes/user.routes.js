@@ -10,66 +10,66 @@ const nodemailer = require('nodemailer');
 
 const User = require('../models/users.model');
 
-function sendEmail(email, OTP){
+function sendEmail(email, OTP) {
 
     var transporter = nodemailer.createTransport({
         host: 'smtp.sendgrid.net',
-        port:587,
+        port: 587,
         auth: {
-          user: 'mmstq',
-          pass: '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'
+            user: 'mmstq',
+            pass: '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'
         }
-      });
-      var mailOptions = {
+    });
+    var mailOptions = {
         from: 'Note App',
         to: email,
         subject: 'Note App Password Forgot',
         text: `Your Note App OTP to reset password is: ${OTP}`
         // html: '<h1>Hi People</h1><p>Your Message</p>'
-      };
-      transporter.sendMail(mailOptions, function(error, info){
+    };
+    transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
-          console.log(error);
+            console.log(error);
         } else {
-          console.log('Email sent: ' + info.response);
+            console.log('Email sent: ' + info.response);
         }
-      });
+    });
 }
 
-function generateOTP(){
-    return Math.floor(Math.random()*(99999-10000)+10000);
+function generateOTP() {
+    return Math.floor(Math.random() * (99999 - 10000) + 10000);
 }
 
-router.post('/forgotPassword', (req, res, next)=>{
+router.post('/forgotPassword', (req, res, next) => {
     console.log('forgot');
     User.find({
         email: req.body.email
     }).exec()
-    .then(user=>{
-        console.log(user);
-        if(user.length > 0){
-            var otp = generateOTP();
-            sendEmail(req.body.email, otp);
-            res.status(HttpStatus.OK).json({
-                username: user[0].username,
-                id: user[0]._id,
-                name: user[0].name,
-                email: user[0].email,
-                OTP: otp
-            });
-        }else{
+        .then(user => {
+            console.log(user);
+            if (user.length > 0) {
+                var otp = generateOTP();
+                sendEmail(req.body.email, otp);
+                res.status(HttpStatus.OK).json({
+                    username: user[0].username,
+                    id: user[0]._id,
+                    name: user[0].name,
+                    email: user[0].email,
+                    OTP: otp
+                });
+            } else {
 
-            res.status(HttpStatus.NOT_FOUND).json({
-                message: "User Not Found"
+                res.status(HttpStatus.NOT_FOUND).json({
+                    message: "User Not Found"
+                });
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                message: err
             });
-        }
-    })
-    .catch(err=>{
-        console.log(err);
-        res.status(500).json({
-            message: err
         });
-    });
 });
 
 router.post('/signup', (req, res, next) => {
@@ -144,8 +144,8 @@ router.post('/login', (req, res, next) => {
                         userId: user.ObjectId,
                         username: user.username
                     },
-                    '@qwerty312',{
-                        expiresIn:'1h'
+                        '@qwerty312', {
+                        expiresIn: '1h'
                     });
                     return res.status(200).json({
                         message: 'Auth Success',
