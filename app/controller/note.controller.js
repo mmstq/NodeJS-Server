@@ -68,13 +68,6 @@ exports.findOne = async (req, res) => {
 // Update a note identified by the noteId in the request
 exports.update = async (req, res) => {
 
-    // Validate Request
-    if (!req.body.content) {
-        return res.status(400).send({
-            message: "Note content can not be empty"
-        });
-    }
-
     // Find note and update it with the request body
     await Note.findByIdAndUpdate(req.params.noteId, {
             title: req.body.title || "Untitled Note",
