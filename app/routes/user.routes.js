@@ -23,6 +23,20 @@ function sendEmail(email, OTP) {
         `https://developers.google.com/oauthplayground` // Redirect URL
     );
 
+    const GMAIL_SCOPES = [
+        'https://mail.google.com/',
+        'https://www.googleapis.com/auth/gmail.modify',
+        'https://www.googleapis.com/auth/gmail.compose',
+        'https://www.googleapis.com/auth/gmail.send',
+      ];
+
+      const url = oauth2Client.generateAuthUrl({
+        access_type: 'offline',
+        scope: GMAIL_SCOPES
+      });
+
+      console.log(`authUrl ${url}`);
+
     oauth2Client.setCredentials({
         refresh_token: refresh_token
     });
@@ -48,7 +62,7 @@ function sendEmail(email, OTP) {
             subject: "Node.js Email with Secure OAuth",
             generateTextFromHTML: true,
             html: "<b>test</b>",
-            text: OTP
+            text: `Otp is ${OTP}`
        };
 
        smtpTransport.sendMail(mailOptions, (error, response) => {
