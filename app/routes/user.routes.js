@@ -45,7 +45,7 @@ function sendEmail(email, OTP) {
             subject: "Node.js Email with Secure OAuth",
             generateTextFromHTML: true,
             html: "<b>test</b>",
-            text: otp
+            text: OTP
        };
 
        smtpTransport.sendMail(mailOptions, (error, response) => {
