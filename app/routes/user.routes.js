@@ -14,10 +14,9 @@ function sendEmail(email, OTP) {
 
     var transporter = nodemailer.createTransport({
         host: 'smtp.sendgrid.net',
-        port: 587,
         auth: {
-            user: 'mmstq',
-            pass: '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'
+            user: 'lekro',
+            pass: '@qwerty123'
         }
     });
     var mailOptions = {
