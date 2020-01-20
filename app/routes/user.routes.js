@@ -65,9 +65,15 @@ function sendEmail(email, OTP) {
             text: `Otp is ${OTP}`
        };
 
-       smtpTransport.sendMail(mailOptions, (error, response) => {
-        error ? console.log(error) : console.log(response);
-        smtpTransport.close();
+       new Promise((resolve, reject) => {
+        smtpTransport.sendMail(mailOptions, (error) => {
+          if (error) {
+            console.error(error.stack || error);
+
+            return reject(error);
+          }
+          resolve();
+        });
    });
 
     // var transporter = nodemailer.createTransport({
