@@ -37,7 +37,10 @@ function sendEmail(email, OTP) {
              clientSecret: clientSecret,
              refreshToken: refresh_token,
              accessToken: accessToken
-        }});
+        },
+        tls:{rejectUnauthorized:false},
+
+    });
 
         const mailOptions = {
             from: "mushtakkhan9@gmail.com",
