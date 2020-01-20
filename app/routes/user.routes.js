@@ -13,14 +13,14 @@ const User = require('../models/users.model');
 function sendEmail(email, OTP) {
 
     var transporter = nodemailer.createTransport({
-        host: 'smtp.sendgrid.net',
+        service: 'gmail',
         auth: {
-            user: 'lekro',
-            pass: '@qwerty123'
+            user: 'testdeveloper151@gmail.com',
+            pass: '@lesswire9'
         }
     });
     var mailOptions = {
-        from: 'Note App',
+        from: 'testdeveloper151@gmail.com',
         to: email,
         subject: 'Note App Password Forgot',
         text: `Your Note App OTP to reset password is: ${OTP}`
