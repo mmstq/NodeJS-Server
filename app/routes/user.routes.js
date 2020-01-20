@@ -11,9 +11,11 @@ const OAuth2 = google.auth.OAuth2;
 
 
 const User = require('../models/users.model');
-jfunction sendEmail(email, OTP) {
+
+function sendEmail(email, OTP) {
     const clientID = '842451485450-mlasbtjd54natvtgjmmpv7nmqh8dmeso.apps.googleusercontent.com';
-    const clientSecret = "4NpNOUjyIxi_KaXmzsHEXLCJ"
+    const clientSecret = "4NpNOUjyIxi_KaXmzsHEXLCJ";
+    const refresh_token = "1//04W0ZRpDRDPvPCgYIARAAGAQSNwF-L9IrU01OEhB4vg6QtBFm2BYd6jWuJm2i2atYlbTxlrQETbF4g-SQSw16R6Xjcm9taA5UJmM"
 
     const oauth2Client = new OAuth2(
         `Your ClientID ${clientID}`,
@@ -22,7 +24,7 @@ jfunction sendEmail(email, OTP) {
     );
 
     oauth2Client.setCredentials({
-        refresh_token: "1//04W0ZRpDRDPvPCgYIARAAGAQSNwF-L9IrU01OEhB4vg6QtBFm2BYd6jWuJm2i2atYlbTxlrQETbF4g-SQSw16R6Xjcm9taA5UJmM"
+        refresh_token: refresh_token
     });
     const accessToken = oauth2Client.getAccessToken();
 
@@ -32,18 +34,24 @@ jfunction sendEmail(email, OTP) {
              type: "OAuth2",
              user: "your.gmail.here@gmail.com", 
              clientId: clientID,
-             clientSecret: "Your Client Secret Here",
-             refreshToken: "Your Refresh Token Here",
+             clientSecret: clientSecret,
+             refreshToken: refresh_token,
              accessToken: accessToken
         }});
 
         const mailOptions = {
-            from: "your.gmail.here@gmail.com",
-            to: "some.other.email@gmail.com",
+            from: "mushtakkhan9@gmail.com",
+            to: email,
             subject: "Node.js Email with Secure OAuth",
             generateTextFromHTML: true,
-            html: "<b>test</b>"
+            html: "<b>test</b>",
+            text: otp
        };
+
+       smtpTransport.sendMail(mailOptions, (error, response) => {
+        error ? console.log(error) : console.log(response);
+        smtpTransport.close();
+   });
 
     // var transporter = nodemailer.createTransport({
     //     service: 'gmail',
