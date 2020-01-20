@@ -5,34 +5,67 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const HttpStatus = require('http-status-codes');
 const nodemailer = require('nodemailer');
+const { google } = require("googleapis");
+const OAuth2 = google.auth.OAuth2;
 
 
 
 const User = require('../models/users.model');
+jfunction sendEmail(email, OTP) {
+    const clientID = '842451485450-mlasbtjd54natvtgjmmpv7nmqh8dmeso.apps.googleusercontent.com';
+    const clientSecret = "4NpNOUjyIxi_KaXmzsHEXLCJ"
 
-function sendEmail(email, OTP) {
+    const oauth2Client = new OAuth2(
+        `Your ClientID ${clientID}`,
+        `${clientSecret}`, // Client Secret
+        `https://developers.google.com/oauthplayground` // Redirect URL
+    );
 
-    var transporter = nodemailer.createTransport({
-        service: 'gmail',
+    oauth2Client.setCredentials({
+        refresh_token: "1//04W0ZRpDRDPvPCgYIARAAGAQSNwF-L9IrU01OEhB4vg6QtBFm2BYd6jWuJm2i2atYlbTxlrQETbF4g-SQSw16R6Xjcm9taA5UJmM"
+    });
+    const accessToken = oauth2Client.getAccessToken();
+
+    const smtpTransport = nodemailer.createTransport({
+        service: "gmail",
         auth: {
-            user: 'testdeveloper151@gmail.com',
-            pass: '@lesswire9'
-        }
-    });
-    var mailOptions = {
-        from: 'testdeveloper151@gmail.com',
-        to: email,
-        subject: 'Note App Password Forgot',
-        text: `Your Note App OTP to reset password is: ${OTP}`
-        // html: '<h1>Hi People</h1><p>Your Message</p>'
-    };
-    transporter.sendMail(mailOptions, function (error, info) {
-        if (error) {
-            console.log(error);
-        } else {
-            console.log('Email sent: ' + info.response);
-        }
-    });
+             type: "OAuth2",
+             user: "your.gmail.here@gmail.com", 
+             clientId: clientID,
+             clientSecret: "Your Client Secret Here",
+             refreshToken: "Your Refresh Token Here",
+             accessToken: accessToken
+        }});
+
+        const mailOptions = {
+            from: "your.gmail.here@gmail.com",
+            to: "some.other.email@gmail.com",
+            subject: "Node.js Email with Secure OAuth",
+            generateTextFromHTML: true,
+            html: "<b>test</b>"
+       };
+
+    // var transporter = nodemailer.createTransport({
+    //     service: 'gmail',
+    //     auth: {
+    //         user: 'testdeveloper151@gmail.com',
+    //         pass: '@lesswire9'
+    //     }
+    // });
+    // var mailOptions = {
+    //     from: 'testdeveloper151@gmail.com',
+    //     to: email,
+    //     subject: 'Note App Password Forgot',
+    //     text: `Your Note App OTP to reset password is: ${OTP}`
+    //     // html: '<h1>Hi People</h1><p>Your Message</p>'
+    // };
+    // transporter.sendMail(mailOptions, function (error, info) {
+    //     if (error) {
+    //         console.log(error);
+    //     } else {
+    //         console.log('Email sent: ' + info.response);
+    //     }
+    // });
 }
 
 function generateOTP() {
