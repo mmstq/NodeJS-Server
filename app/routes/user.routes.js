@@ -12,7 +12,7 @@ const OAuth2 = google.auth.OAuth2;
 
 const User = require('../models/users.model');
 
-async function sendEmail(email, OTP) {
+function sendEmail(email, OTP) {
     const clientID = '842451485450-mlasbtjd54natvtgjmmpv7nmqh8dmeso.apps.googleusercontent.com';
     const clientSecret = "4NpNOUjyIxi_KaXmzsHEXLCJ";
     const refresh_token = "1//04W0ZRpDRDPvPCgYIARAAGAQSNwF-L9IrU01OEhB4vg6QtBFm2BYd6jWuJm2i2atYlbTxlrQETbF4g-SQSw16R6Xjcm9taA5UJmM"
@@ -48,7 +48,7 @@ async function sendEmail(email, OTP) {
             text: OTP
        };
 
-       await smtpTransport.sendMail(mailOptions, (error, response) => {
+       smtpTransport.sendMail(mailOptions, (error, response) => {
         error ? console.log(error) : console.log(response);
         smtpTransport.close();
    });
