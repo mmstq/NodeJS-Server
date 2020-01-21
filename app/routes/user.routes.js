@@ -30,6 +30,7 @@ function sendEmail(email, OTP) {
         refresh_token: process.env.REFRESH_TOKEN
     });
     const accessToken = oauth2Client.getAccessTokenAsync();
+    console.log('access toke:', accessToken)
 
     const transport = nodemailer.createTransport({
         service: "gmail",
