@@ -17,7 +17,7 @@ function sendEmail(email, OTP) {
     const oauth2Client = new OAuth2(
         process.env.ClientID,
         process.env.ClientSecret, // Client Secret
-        process.env.RedirectURL // Redirect URL
+        "" // Redirect URL
     );
 
     oauth2Client.setCredentials({
