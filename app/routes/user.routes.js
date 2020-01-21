@@ -18,67 +18,50 @@ function sendEmail(email, OTP) {
     const refresh_token = "1//04W0ZRpDRDPvPCgYIARAAGAQSNwF-L9IrU01OEhB4vg6QtBFm2BYd6jWuJm2i2atYlbTxlrQETbF4g-SQSw16R6Xjcm9taA5UJmM"
 
     const oauth2Client = new OAuth2(
-        `Your ClientID ${clientID}`,
-        `${clientSecret}`, // Client Secret
-        `https://developers.google.com/oauthplayground` // Redirect URL
+        clientID,
+        clientSecret, // Client Secret
+        "https://developers.google.com/oauthplayground" // Redirect URL
     );
-
-    const GMAIL_SCOPES = [
-        'https://mail.google.com/',
-        'https://www.googleapis.com/auth/gmail.modify',
-        'https://www.googleapis.com/auth/gmail.compose',
-        'https://www.googleapis.com/auth/gmail.send',
-      ];
-
-      const url = oauth2Client.generateAuthUrl({
-        access_type: 'offline',
-        scope: GMAIL_SCOPES
-      });
-
-      console.log(`authUrl ${url}`);
 
     oauth2Client.setCredentials({
         refresh_token: refresh_token
     });
-    const accessToken = oauth2Client.getAccessToken().then(token=>{
+    const accessToken = oauth2Client.getAccessToken().then(token => {
         console.log(token);
-    }).catch(err=>{
+    }).catch(err => {
         console.log(err);
     });
 
     const smtpTransport = nodemailer.createTransport({
         service: "gmail",
         auth: {
-             type: "OAuth2",
-             user: "mushtakkhan9@gmail.com", 
-             clientId: clientID,
-             clientSecret: clientSecret,
-             refreshToken: refresh_token,
-             accessToken: accessToken
+            type: "OAuth2",
+            user: "mushtakkhan9@gmail.com",
+            clientId: clientID,
+            clientSecret: clientSecret,
+            refreshToken: refresh_token,
+            accessToken: accessToken
         },
-        tls:{rejectUnauthorized:false},
+        tls: { rejectUnauthorized: false },
 
     });
 
-        const mailOptions = {
-            from: "mushtakkhan9@gmail.com",
-            to: email,
-            subject: "Node.js Email with Secure OAuth",
-            generateTextFromHTML: true,
-            html: "<b>test</b>",
-            text: `Otp is ${OTP}`
-       };
+    const mailOptions = {
+        from: "mushtakkhan9@gmail.com",
+        to: email,
+        subject: "Notes App Forgot Password",
+        generateTextFromHTML: true,
+        html: "<b>Hello, This is Note App</b>",
+    };
 
-       new Promise((resolve, reject) => {
-        smtpTransport.sendMail(mailOptions, (error) => {
-          if (error) {
-            console.error(error.stack || error);
 
-            return reject(error);
-          }
-          resolve();
-        });
-   });
+    smtpTransport.sendMail(mailOptions, (error) => {
+        if (error) {
+            console.log("error sending mail")
+            console.error(error.stack || error)
+        }
+
+    });
 
 
 }
