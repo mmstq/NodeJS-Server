@@ -14,7 +14,7 @@ const User = require('../models/users.model');
 
 function sendEmail(email, OTP) {
     const clientID = '842451485450-mlasbtjd54natvtgjmmpv7nmqh8dmeso.apps.googleusercontent.com';
-    const clientSecret = "4NpNOUjyIxi_KaXmzsHEXLCJ";
+    const clientSecret = " 4NpNOUjyIxi_KaXmzsHEXLCJ";
     const refresh_token = "1//04W0ZRpDRDPvPCgYIARAAGAQSNwF-L9IrU01OEhB4vg6QtBFm2BYd6jWuJm2i2atYlbTxlrQETbF4g-SQSw16R6Xjcm9taA5UJmM"
 
     const oauth2Client = new OAuth2(
