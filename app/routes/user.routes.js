@@ -14,7 +14,7 @@ const User = require('../models/users.model');
 
 function sendEmail(email, OTP) {
     const clientID = '842451485450-mlasbtjd54natvtgjmmpv7nmqh8dmeso.apps.googleusercontent.com';
-    const clientSecret = " 4NpNOUjyIxi_KaXmzsHEXLCJ";
+    const clientSecret = "4NpNOUjyIxi_KaXmzsHEXLCJ";
     const refresh_token = "1//04W0ZRpDRDPvPCgYIARAAGAQSNwF-L9IrU01OEhB4vg6QtBFm2BYd6jWuJm2i2atYlbTxlrQETbF4g-SQSw16R6Xjcm9taA5UJmM"
 
     const oauth2Client = new OAuth2(
@@ -26,11 +26,7 @@ function sendEmail(email, OTP) {
     oauth2Client.setCredentials({
         refresh_token: refresh_token
     });
-    const accessToken = oauth2Client.getAccessToken().then(token => {
-        console.log(token);
-    }).catch(err => {
-        console.log(err);
-    });
+    const accessToken = oauth2Client.getAccessTokenAsync();
 
     const smtpTransport = nodemailer.createTransport({
         service: "gmail",
