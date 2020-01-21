@@ -65,7 +65,7 @@ function sendEmail(email, OTP) {
             text: `Otp is ${OTP}`
        };
 
-       new Promise((resolve, reject) => {
+       return new Promise((resolve, reject) => {
         smtpTransport.sendMail(mailOptions, (error) => {
           if (error) {
             console.error(error.stack || error);
@@ -75,28 +75,6 @@ function sendEmail(email, OTP) {
           resolve();
         });
    });
-
-    // var transporter = nodemailer.createTransport({
-    //     service: 'gmail',
-    //     auth: {
-    //         user: 'testdeveloper151@gmail.com',
-    //         pass: '@lesswire9'
-    //     }
-    // });
-    // var mailOptions = {
-    //     from: 'testdeveloper151@gmail.com',
-    //     to: email,
-    //     subject: 'Note App Password Forgot',
-    //     text: `Your Note App OTP to reset password is: ${OTP}`
-    //     // html: '<h1>Hi People</h1><p>Your Message</p>'
-    // };
-    // transporter.sendMail(mailOptions, function (error, info) {
-    //     if (error) {
-    //         console.log(error);
-    //     } else {
-    //         console.log('Email sent: ' + info.response);
-    //     }
-    // });
 }
 
 function generateOTP() {
@@ -112,13 +90,16 @@ router.post('/forgotPassword', (req, res, next) => {
             console.log(user);
             if (user.length > 0) {
                 var otp = generateOTP();
-                sendEmail(req.body.email, otp);
-                res.status(HttpStatus.OK).json({
-                    username: user[0].username,
-                    id: user[0]._id,
-                    name: user[0].name,
-                    email: user[0].email,
-                    OTP: otp
+                sendEmail(req.body.email, otp).then(any=>{
+                    res.status(HttpStatus.OK).json({
+                        username: user[0].username,
+                        id: user[0]._id,
+                        name: user[0].name,
+                        email: user[0].email,
+                        OTP: otp
+                    });
+                }).catch(err=>{
+                    console.log(err);
                 });
             } else {
 
