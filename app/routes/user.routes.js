@@ -28,7 +28,7 @@ const REFRESH_TOKEN="1//04W0ZRpDRDPvPCgYIARAAGAQSNwF-L9IrU01OEhB4vg6QtBFm2BYd6jW
     );
 
     oauth2Client.setCredentials({
-        refresh_token: REFRESH_TOKEN
+        refresh_token: process.env.REFRESH_TOKEN
     });
     const accessToken = oauth2Client.getAccessTokenAsync();
 
@@ -39,7 +39,7 @@ const REFRESH_TOKEN="1//04W0ZRpDRDPvPCgYIARAAGAQSNwF-L9IrU01OEhB4vg6QtBFm2BYd6jW
             user: MY_EMAIL,
             clientId: CLIENT_ID,
             clientSecret: CLIENT_SECRET,
-            refreshToken: REFRESH_TOKEN,
+            refreshToken: process.env.REFRESH_TOKEN,
             accessToken: accessToken
         },
         tls: { rejectUnauthorized: false },
