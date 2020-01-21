@@ -14,17 +14,10 @@ const User = require('../models/users.model');
 
 function sendEmail(email, OTP) {
 
-const CLIENT_ID="842451485450-mlasbtjd54natvtgjmmpv7nmqh8dmeso.apps.googleusercontent.com"
-const CLIENT_SECRET="4NpNOUjyIxi_KaXmzsHEXLCJ"
-const BCRYPT_KEY="@qwerty312"
-const REDIRECT_URL="https://developers.google.com/oauthplayground"
-const MY_EMAIL="mushtakkhan9@gmail.com"
-const REFRESH_TOKEN="1//04W0ZRpDRDPvPCgYIARAAGAQSNwF-L9IrU01OEhB4vg6QtBFm2BYd6jWuJm2i2atYlbTxlrQETbF4g-SQSw16R6Xjcm9taA5UJmM"
-
     const oauth2Client = new OAuth2(
-        CLIENT_ID,
-        CLIENT_SECRET,
-        REDIRECT_URL // Redirect URL
+        process.env.CLIENT_ID,
+        process.env.CLIENT_SECRET,
+        process.env.REDIRECT_URL // Redirect URL
     );
 
     oauth2Client.setCredentials({
@@ -36,9 +29,9 @@ const REFRESH_TOKEN="1//04W0ZRpDRDPvPCgYIARAAGAQSNwF-L9IrU01OEhB4vg6QtBFm2BYd6jW
         service: "gmail",
         auth: {
             type: "OAuth2",
-            user: MY_EMAIL,
-            clientId: CLIENT_ID,
-            clientSecret: CLIENT_SECRET,
+            user: process.env.MY_EMAIL,
+            clientId: process.env.CLIENT_ID,
+            clientSecret: process.env.CLIENT_SECRET,
             refreshToken: process.env.REFRESH_TOKEN,
             accessToken: accessToken
         },
@@ -47,7 +40,7 @@ const REFRESH_TOKEN="1//04W0ZRpDRDPvPCgYIARAAGAQSNwF-L9IrU01OEhB4vg6QtBFm2BYd6jW
     });
 
     const mailOptions = {
-        from: MY_EMAIL,
+        from: process.env.MY_EMAIL,
         to: email,
         subject: "Notes App Forgot Password",
         generateTextFromHTML: true,
