@@ -103,7 +103,7 @@ router.post('/signup', (req, res, next) => {
         exec()
         .then(user => {
             if (user) {
-                return res.status(HttpStatus.CONFLICT).json({
+                return res.status(409).json({
                     message: 'There is already an account associated with this email'
                 });
             } else {
@@ -123,7 +123,7 @@ router.post('/signup', (req, res, next) => {
                         user
                             .save()
                             .then(result => {
-                                res.status(HttpStatus.CREATED).json({
+                                res.status(201).json({
                                     message: 'User registration successful'
                                 });
                             })
@@ -151,7 +151,7 @@ router.post('/login', (req, res, next) => {
     User.findOne({ email: req.body.email }).exec()
         .then(user => {
             if (user.length < 1) {
-                return res.status(HttpStatus.NOT_FOUND).json({
+                return res.status(404).json({
                     message: 'No user associated with this email'
                 });
             }
@@ -167,7 +167,7 @@ router.post('/login', (req, res, next) => {
                         userId: user.ObjectId,
                         username: user.username
                     },
-                        process.env.BCRYPT_KEY, {
+                        '@qwerty312', {
                         expiresIn: '1h'
                     });
                     return res.status(200).json({

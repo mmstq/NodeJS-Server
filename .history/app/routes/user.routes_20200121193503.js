@@ -123,7 +123,7 @@ router.post('/signup', (req, res, next) => {
                         user
                             .save()
                             .then(result => {
-                                res.status(HttpStatus.CREATED).json({
+                                res.status(201).json({
                                     message: 'User registration successful'
                                 });
                             })
@@ -151,7 +151,7 @@ router.post('/login', (req, res, next) => {
     User.findOne({ email: req.body.email }).exec()
         .then(user => {
             if (user.length < 1) {
-                return res.status(HttpStatus.NOT_FOUND).json({
+                return res.status(404).json({
                     message: 'No user associated with this email'
                 });
             }
