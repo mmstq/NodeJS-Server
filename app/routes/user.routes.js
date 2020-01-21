@@ -14,36 +14,32 @@ const User = require('../models/users.model');
 
 function sendEmail(email, OTP) {
 
-    console.log(process.env.CLIENT_ID);
-    console.log(process.env.BCRYPT_KEY);
-    console.log(process.env.CLIENT_SECRET);
-    console.log(process.env.MY_EMAIL);
-    console.log(process.env.REDIRECT_URL);
+const CLIENT_ID="842451485450-mlasbtjd54natvtgjmmpv7nmqh8dmeso.apps.googleusercontent.com"
+const CLIENT_SECRET="4NpNOUjyIxi_KaXmzsHEXLCJ"
+const BCRYPT_KEY="@qwerty312"
+const REDIRECT_URL="https://developers.google.com/oauthplayground"
+const MY_EMAIL="mushtakkhan9@gmail.com"
+const REFRESH_TOKEN="1//04W0ZRpDRDPvPCgYIARAAGAQSNwF-L9IrU01OEhB4vg6QtBFm2BYd6jWuJm2i2atYlbTxlrQETbF4g-SQSw16R6Xjcm9taA5UJmM"
 
     const oauth2Client = new OAuth2(
-        process.env.CLIENT_ID,
-        process.env.CLIENT_SECRET, // Client Secret
-        process.env.REDIRECT_URL // Redirect URL
+        CLIENT_ID,
+        CLIENT_SECRET,
+        REDIRECT_URL // Redirect URL
     );
 
     oauth2Client.setCredentials({
-        refresh_token: process.env.REFRESH_TOKEN
+        refresh_token: REFRESH_TOKEN
     });
-    const accessToken = oauth2Client.getAccessTokenAsync().then(token=>{
-        console.log('access toke:', accessToken)
-
-    }).catch(error=>{
-        console.log(error);
-    });
+    const accessToken = oauth2Client.getAccessTokenAsync();
 
     const transport = nodemailer.createTransport({
         service: "gmail",
         auth: {
             type: "OAuth2",
-            user: process.env.MY_EMAIL,
-            clientId: process.env.CLIENT_ID,
-            clientSecret: process.CLIENT_SECRET,
-            refreshToken: process.env.REFRESH_TOKEN,
+            user: MY_EMAIL,
+            clientId: CLIENT_ID,
+            clientSecret: CLIENT_SECRET,
+            refreshToken: REFRESH_TOKEN,
             accessToken: accessToken
         },
         tls: { rejectUnauthorized: false },
@@ -51,7 +47,7 @@ function sendEmail(email, OTP) {
     });
 
     const mailOptions = {
-        from: process.env.MY_EMAIL,
+        from: MY_EMAIL,
         to: email,
         subject: "Notes App Forgot Password",
         generateTextFromHTML: true,
