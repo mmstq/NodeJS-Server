@@ -25,7 +25,7 @@ mongoose.Promise = global.Promise;
 mongoose.set('useCreateIndex', true);
 
 // Connecting to the database
-mongoose.connect(process.env.DB_URL, {
+mongoose.connect(dbConfig.url, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
