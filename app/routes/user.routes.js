@@ -24,7 +24,7 @@ function sendEmail(email, OTP) {
         process.env.CLIENT_ID,
         process.env.CLIENT_SECRET, // Client Secret
         process.env.REDIRECT_URL // Redirect URL
-    );RefreshToken
+    );
 
     oauth2Client.setCredentials({
         refresh_token: process.env.REFRESH_TOKEN
