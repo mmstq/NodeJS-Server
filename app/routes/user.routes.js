@@ -28,7 +28,7 @@ function sendEmail(email, OTP) {
     });
     const accessToken = oauth2Client.getAccessTokenAsync();
 
-    const smtpTransport = nodemailer.createTransport({
+    const transport = nodemailer.createTransport({
         service: "gmail",
         auth: {
             type: "OAuth2",
@@ -51,7 +51,7 @@ function sendEmail(email, OTP) {
     };
 
 
-    smtpTransport.sendMail(mailOptions, (error) => {
+    transport.sendMail(mailOptions, (error) => {
         if (error) {
             console.log("error sending mail")
             console.error(error.stack || error)
@@ -68,19 +68,19 @@ function generateOTP() {
 
 router.post('/forgotPassword', (req, res, next) => {
     console.log('forgot');
-    User.find({
+    User.findOne({
         email: req.body.email
     }).exec()
         .then(user => {
             console.log(user);
-            if (user.length > 0) {
+            if (user) {
                 var otp = generateOTP();
-                sendEmail(req.body.email, otp);
+                sendEmail(user.email, otp);
                 res.status(HttpStatus.OK).json({
-                    username: user[0].username,
-                    id: user[0]._id,
-                    name: user[0].name,
-                    email: user[0].email,
+                    username: user.username,
+                    id: user._id,
+                    name: user.name,
+                    email: user.email,
                     OTP: otp
                 });
             } else {
