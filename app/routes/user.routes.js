@@ -14,14 +14,20 @@ const User = require('../models/users.model');
 
 function sendEmail(email, OTP) {
 
+    console.log(process.env.CLIENT_ID);
+    console.log(process.env.BCRYPT_KEY);
+    console.log(process.env.CLIENT_SECRET);
+    console.log(process.env.MY_EMAIL);
+    console.log(process.env.REDIRECT_URL);
+
     const oauth2Client = new OAuth2(
-        process.env.ClientID,
-        process.env.ClientSecret, // Client Secret
-        process.env.RedirectURL // Redirect URL
-    );
+        process.env.CLIENT_ID,
+        process.env.CLIENT_SECRET, // Client Secret
+        process.env.REDIRECT_URL // Redirect URL
+    );RefreshToken
 
     oauth2Client.setCredentials({
-        refresh_token: process.env.RefreshToken
+        refresh_token: process.env.REFRESH_TOKEN
     });
     const accessToken = oauth2Client.getAccessTokenAsync();
 
@@ -30,9 +36,9 @@ function sendEmail(email, OTP) {
         auth: {
             type: "OAuth2",
             user: process.env.MY_EMAIL,
-            clientId: process.env.ClientID,
-            clientSecret: process.ClientSecret,
-            refreshToken: process.env.RefreshToken,
+            clientId: process.env.CLIENT_ID,
+            clientSecret: process.CLIENT_SECRET,
+            refreshToken: process.env.REFRESH_TOKEN,
             accessToken: accessToken
         },
         tls: { rejectUnauthorized: false },
