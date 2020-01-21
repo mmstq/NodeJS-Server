@@ -29,8 +29,12 @@ function sendEmail(email, OTP) {
     oauth2Client.setCredentials({
         refresh_token: process.env.REFRESH_TOKEN
     });
-    const accessToken = oauth2Client.getAccessTokenAsync();
-    console.log('access toke:', accessToken)
+    const accessToken = oauth2Client.getAccessTokenAsync().then(token=>{
+        console.log('access toke:', accessToken)
+
+    }).catch(error=>{
+        console.log(error);
+    });
 
     const transport = nodemailer.createTransport({
         service: "gmail",
