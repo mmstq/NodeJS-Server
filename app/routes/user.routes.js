@@ -70,8 +70,9 @@ router.post('/forgotPassword', (req, res, next) => {
         .then(user => {
             console.log(user);
             if (user) {
-                var otp = generateOTP();
+                const otp = generateOTP();
                 sendEmail(user.email, otp);
+                console.log(otp,typeof(otp));
                 res.status(HttpStatus.OK).json({
                     username: user.username,
                     id: user._id,
