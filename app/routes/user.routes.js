@@ -44,7 +44,7 @@ function sendEmail(email, OTP) {
         to: email,
         subject: "Notes App Forgot Password",
         generateTextFromHTML: true,
-        html: `Your Note App OTP For Resetting Password is:\n<b>${OTP}</b>`,
+        html: `Your Note App OTP For Resetting Password is: ${OTP}`,
     };
 
 
@@ -59,7 +59,7 @@ function sendEmail(email, OTP) {
 }
 
 function generateOTP() {
-    return Math.floor(Math.random() * (99999 - 10000) + 10000).toString;
+    return Math.floor(Math.random() * (99999 - 10000) + 10000).toString();
 }
 
 router.post('/forgotPassword', (req, res, next) => {
