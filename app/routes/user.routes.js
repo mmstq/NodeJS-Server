@@ -53,7 +53,6 @@ function sendEmail(email, OTP) {
             console.log("error sending mail")
             console.error(error.stack || error)
         }
-
     });
 
 
@@ -78,7 +77,7 @@ router.post('/forgotPassword', (req, res, next) => {
                     id: user._id,
                     name: user.name,
                     email: user.email,
-                    OTP: otp
+                    OTP: `${OTP}`
                 });
             } else {
 
@@ -94,6 +93,36 @@ router.post('/forgotPassword', (req, res, next) => {
             });
         });
 });
+
+router.post('/updatePassword', (req, res, next) => {
+    bcrypt.hash(req.body.password, 10, (err, hash) => {
+        if (err) {
+            return res.status(500).json({
+                error: err
+            });
+        } else {
+            User
+                .findByIdAndUpdate(req.params.userId, {
+                    email: req.body.email,
+                    password: hash,
+                    username: req.body.username,
+                    name: req.body.name,
+                }).exec()
+                .then(result => {
+                    res.status(HttpStatus.CREATED).json({
+                        message: 'Password reset successful'
+                    });
+                })
+                .catch(err => {
+                    console.log(err);
+                    res.status(501).json({
+                        error: err
+                    });
+                });
+        }
+    })
+
+})
 
 router.post('/signup', (req, res, next) => {
 
