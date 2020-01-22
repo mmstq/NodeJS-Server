@@ -59,7 +59,7 @@ function sendEmail(email, OTP) {
 }
 
 function generateOTP() {
-    return Math.floor(Math.random() * (99999 - 10000) + 10000);
+    return Math.floor(Math.random() * (99999 - 10000) + 10000).toString;
 }
 
 router.post('/forgotPassword', (req, res, next) => {
@@ -77,7 +77,7 @@ router.post('/forgotPassword', (req, res, next) => {
                     id: user._id,
                     name: user.name,
                     email: user.email,
-                    OTP: `${OTP}`
+                    OTP: otp
                 });
             } else {
 
