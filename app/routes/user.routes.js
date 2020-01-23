@@ -78,7 +78,6 @@ router.post('/forgotPassword', (req, res, next) => {
                     name: user.name,
                     email: user.email,
                     password:''
-                    
                 },
             extra:{
                 OTP: otp,
@@ -108,10 +107,7 @@ router.post('/updatePassword', (req, res, next) => {
         } else {
             User
                 .findByIdAndUpdate(req.params.userId, {
-                    email: req.body.email,
-                    password: hash,
-                    username: req.body.username,
-                    name: req.body.name,
+                    password: hash
                 }).exec()
                 .then(result => {
                     res.status(HttpStatus.CREATED).json({
