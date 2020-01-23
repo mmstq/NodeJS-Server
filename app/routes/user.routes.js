@@ -73,13 +73,17 @@ router.post('/forgotPassword', (req, res, next) => {
                 const otp = generateOTP();
                 sendEmail(user.email, otp);
                 console.log(otp,typeof(otp));
-                res.status(HttpStatus.OK).json({
+                res.status(HttpStatus.OK).json({user:{
                     username: user.username,
-                    id: user._id,
                     name: user.name,
                     email: user.email,
-                    OTP: otp
-                });
+                    password:''
+                    
+                },
+            extra:{
+                OTP: otp,
+                id: user._id,
+            }});
             } else {
 
                 res.status(HttpStatus.NOT_FOUND).json({
