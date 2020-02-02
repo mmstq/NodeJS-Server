@@ -88,7 +88,7 @@ router.post('/forgotPassword', (req, res, next) => {
         });
 });
 
-router.put('/updatePassword:userId', (req, res, next) => {
+router.put('/updatePassword/:userId', (req, res, next) => {
     console.log(req.body, req.params);
     bcrypt.hash(req.body.password, 10, (err, hash) => {
         if (err) {
