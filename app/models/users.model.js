@@ -1,17 +1,18 @@
 const mongoose = require('mongoose');
 const dateformat = require('dateformat');
+const Joi = require('@hapi/joi')
+
 
 
 const UserSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
-    email: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    password: { type: String, required: true },
-    username: { type: String, required: true },
-    name: { type: String, required: true },
+    email: Joi.string()
+            .email()
+            .required()
+            .min(5),
+    password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required(),
+    username: Joi.string().min(3).max(10).required(),
+    name: Joi.ref('username'),
     joined: {type: String, default: dateformat(new Date())}
 });
 

@@ -8,10 +8,7 @@ const nodemailer = require('nodemailer');
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
 
-
-
 const User = require('../models/users.model');
-
 function sendEmail(email, OTP) {
 
     const oauth2Client = new OAuth2(
@@ -46,21 +43,15 @@ function sendEmail(email, OTP) {
         generateTextFromHTML: true,
         html: `Your Note App OTP For Resetting Password is: ${OTP}`,
     };
-
-
     transport.sendMail(mailOptions, (error) => {
         if (error) {
             console.log("error sending mail")
             console.error(error.stack || error)
         }
     });
-
-
 }
 
-function generateOTP() {
-    return Math.floor(Math.random() * (99999 - 10000) + 10000).toString();
-}
+const generateOTP = () => Math.floor(Math.random() * (99999 - 10000) + 10000).toString();
 
 router.post('/forgotPassword', (req, res, next) => {
     console.log('forgot');
@@ -72,7 +63,6 @@ router.post('/forgotPassword', (req, res, next) => {
             if (user) {
                 const otp = generateOTP();
                 sendEmail(user.email, otp);
-                console.log(otp,typeof(otp));
                 res.status(HttpStatus.OK).json({user:{
                     username: user.username,
                     name: user.name,
@@ -81,7 +71,7 @@ router.post('/forgotPassword', (req, res, next) => {
                 },
             extra:{
                 OTP: otp,
-                id: user._id,
+                id: user.id,
             }});
             } else {
 
@@ -98,7 +88,7 @@ router.post('/forgotPassword', (req, res, next) => {
         });
 });
 
-router.post('/updatePassword', (req, res, next) => {
+router.put('/updatePassword:userId', (req, res, next) => {
     bcrypt.hash(req.body.password, 10, (err, hash) => {
         if (err) {
             return res.status(500).json({
@@ -107,7 +97,13 @@ router.post('/updatePassword', (req, res, next) => {
         } else {
             User
                 .findByIdAndUpdate(req.params.userId, {
-                    password: hash
+                    password: hash,
+                    username: req.body.username,
+                    name: req.body.name,
+                    email: req.body.email
+                },
+                {
+                    new: true
                 }).exec()
                 .then(result => {
                     res.status(HttpStatus.CREATED).json({
