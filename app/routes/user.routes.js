@@ -98,10 +98,7 @@ router.put('/updatePassword/:userId', (req, res, next) => {
         } else {
             User
                 .findByIdAndUpdate(req.params.userId, {
-                    password: hash,
-                    username: req.body.username,
-                    name: req.body.name,
-                    email: req.body.email
+                    password: hash
                 },
                 {
                     new: true
