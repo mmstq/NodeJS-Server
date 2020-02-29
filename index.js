@@ -70,7 +70,7 @@ socketIO.on('connection', (socket) => {
         console.log(`${field} : ${value}`)
         model.findOne({ field: value }).exec()
             .then(note => {
-                if (note.length()>0) {
+                if (note) {
                     console.log(note);
                     socket.emit('search_result', note);
                 }else{strings in javascript
