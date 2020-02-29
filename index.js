@@ -64,8 +64,8 @@ const socketIO = require('socket.io')(http);
 socketIO.on('connection', (socket) => {
     console.log('connected');
     socket.on('user_query', (args) => {
-        var field = args.get("field");
-        var value = args.get("value");
+        var field = args["field"];
+        var value = args["value"];
         console.log(args.values())
         console.log(`${field} : ${value}`)
         model.find({ field: value }).exec()
