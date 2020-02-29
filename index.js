@@ -68,9 +68,9 @@ socketIO.on('connection', (socket) => {
         var field = arg.field;
         var value = arg.value;
         console.log(`${field} : ${value}`)
-        model.find({ field: value }).exec()
+        model.findOne({ field: value }).exec()
             .then(note => {
-                if (note) {
+                if (note.length()>0) {
                     console.log(note);
                     socket.emit('search_result', note);
                 }else{strings in javascript

@@ -192,7 +192,7 @@ router.post('/login', (req, res, next) => {
                         username: user.username
                     },
                         process.env.BCRYPT_KEY, {
-                        expiresIn: '1h'
+                        expiresIn: '3h'
                     });
                     return res.status(200).json({
                         message: 'Auth Success',
