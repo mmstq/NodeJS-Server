@@ -73,11 +73,11 @@ socketIO.on('connection', (socket) => {
                 if (note) {
                     console.log(note);
                     socket.emit('search_result', note);
-                }else{strings in javascript
+                } else {
                     console.log('No result, Sorry')
-                socket.emit('search_result', 'No result found')
+                    socket.emit('search_result', 'No result found')
                 }
-            }).catch(err=>{
+            }).catch(err => {
                 console.log(err);
             });
     })
