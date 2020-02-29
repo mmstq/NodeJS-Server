@@ -71,7 +71,7 @@ socketIO.on('connection', (socket) => {
         model.find({ field: value }).exec()
             .then(note => {
                 if (note) {
-                    console.log(`Result: ${note}`);
+                    console.log(note);
                     socket.emit('search_result', note);
                 }else{strings in javascript
                     console.log('No result, Sorry')
