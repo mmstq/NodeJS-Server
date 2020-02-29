@@ -66,8 +66,8 @@ socketIO.on('connection', (socket) => {
     socket.on('user_query', (args) => {
         var map = JSON.stringify(args)
         var arg = JSON.parse(map)
-        var field = arg["field"];
-        var value = arg["value"];
+        var field = map["field"];
+        var value = map["value"];
         console.log(arg, map)
         console.log(`${field} : ${value}`)
         model.find({ field: value }).exec()
