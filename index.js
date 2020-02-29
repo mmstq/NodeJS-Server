@@ -65,14 +65,13 @@ socketIO.on('connection', (socket) => {
     console.log('connected');
     socket.on('user_query', (args) => {
         var arg = JSON.parse(args)
-        var field = arg["field"];
+        var field = arg.field;
         var value = arg.value;
-        console.log(arg, args)
         console.log(`${field} : ${value}`)
         model.find({ field: value }).exec()
             .then(note => {
                 if (note) {
-                    console.log(note);
+                    console.log(`Result: ${note}`);
                     socket.emit('search_result', note);
                 }else{strings in javascript
                     console.log('No result, Sorry')
