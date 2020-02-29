@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const user = require('./app/routes/user.routes');
 const checkAuth = require('./middleware/check-auth');
 const model = require('./app/models/users.model')
+const lodash = require('lodash')
 
 
 // create express app
@@ -62,14 +63,31 @@ const socketIO = require('socket.io')(http);
 
 socketIO.on('connection', (socket) => {
     console.log('connected');
-    socket.on('userNameCheck', (data) => {
-        console.log(data);
-        model.findOne({ username: data }, 'username').exec()
+    socket.on('user_query', (args) => {
+        var field = args.field;
+        var value = args.value;
+        console.log(`${field} : ${value}`)
+        model.find({ field: value }).exec()
+            .then(note => {
+                if (note) {
+                    console.log(note);
+                    socket.emit('search_result', note);
+                }else{strings in javascript
+                    console.log('No result, Sorry')
+                socket.emit('search_result', 'No result found')
+                }
+            }).catch(err=>{
+                console.log(err);
+            });
+    })
+    socket.on('userNameCheck', (username) => {
+        console.log(username);
+        model.findOne({ username: username }, 'username').exec()
             .then(username => {
                 if (username) {
                     console.log(username);
                     socket.emit('result', true);
-                }else{
+                } else {
                     console.log('not found username');
                     socket.emit('result', false)
                 }
@@ -77,12 +95,9 @@ socketIO.on('connection', (socket) => {
             }).catch(err => {
                 console.log(err);
                 socket.emit('result', false);
-
             });
-
     });
 });
-
 // listen for requests
 http.listen(PORT, () => {
     console.log("Server is listening on port: " + PORT);

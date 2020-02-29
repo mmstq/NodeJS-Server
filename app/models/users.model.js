@@ -9,7 +9,7 @@ const UserSchema = mongoose.Schema({
     email: Joi.string()
             .email()
             .required()
-            .min(5),
+            .min(8),
     password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required(),
     username: Joi.string().min(3).max(10).required(),
     name: Joi.ref('username'),
