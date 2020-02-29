@@ -66,7 +66,7 @@ socketIO.on('connection', (socket) => {
     socket.on('user_query', (args) => {
         var field = args["field"];
         var value = args["value"];
-        console.log(args.values())
+        console.log(args)
         console.log(`${field} : ${value}`)
         model.find({ field: value }).exec()
             .then(note => {
