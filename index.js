@@ -65,7 +65,7 @@ socketIO.on('connection', (socket) => {
     console.log('connected');
     socket.on('user_query', (args) => {
         const arg = JSON.parse(args)
-        console.log(`${field} : ${value}`)
+        console.log(`${arg.field} : ${arg.value}`)
         const query = {}
         query[arg.field]=arg.value
         model.find(query, {_id:0}).exec()
