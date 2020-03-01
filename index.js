@@ -68,7 +68,7 @@ socketIO.on('connection', (socket) => {
         var field = arg.field;
         var value = arg.value;
         console.log(`${field} : ${value}`)
-        model.findOne({ field: value }).exec()
+        model.findOne({ username: value }).exec()
             .then(note => {
                 if (note) {
                     console.log(note);
