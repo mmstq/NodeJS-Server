@@ -64,11 +64,11 @@ const socketIO = require('socket.io')(http);
 socketIO.on('connection', (socket) => {
     console.log('connected');
     socket.on('user_query', (args) => {
-        var arg = JSON.parse(args)
-        var field = arg.field;
-        var value = arg.value;
+        const arg = JSON.parse(args)
         console.log(`${field} : ${value}`)
-        model.find({ username: value }).exec()
+        const query = {}
+        query[arg.field]=arg.value
+        model.find(query, {_id:0}).exec()
             .then(note => {
                 if (note) {
                     console.log(note);
