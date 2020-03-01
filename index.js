@@ -68,7 +68,7 @@ socketIO.on('connection', (socket) => {
         console.log(`${arg.field} : ${arg.value}`)
         const query = {}
         query[arg.field]=arg.value
-        model.find(query, {_id:0}).exec()
+        model.find(query, {_id:0, name:1, email:1}).exec()
             .then(note => {
                 if (note) {
                     console.log(note);
