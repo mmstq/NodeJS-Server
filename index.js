@@ -65,9 +65,10 @@ socketIO.on('connection', (socket) => {
     console.log('connected');
     socket.on('user_query', (args) => {
         const arg = JSON.parse(args)
+        var regex = RegExp("/.*" + arg.va + ".*/")
         console.log(`${arg.field} : ${arg.value}`)
         const query = {}
-        query[arg.field]=arg.value
+        query[arg.field]=regex
         model.find(query, {_id:0, name:1, email:1}).exec()
             .then(note => {
                 if (note) {
