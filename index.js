@@ -48,6 +48,8 @@ app.post('/notes', checkAuth, notes.create);
 
 app.get('/notes', checkAuth, notes.findAll);
 
+app.get('/ping/:time', notes.ping);
+
 app.get('/notes/:noteId', checkAuth, notes.findOne);
 
 // Update a Note with noteId
@@ -68,8 +70,8 @@ socketIO.on('connection', (socket) => {
         // var regex = RegExp("/.*" + arg.va + ".*/")
         console.log(`${arg.field} : ${arg.value}`)
         const query = {}
-        query[arg.field]=new RegExp('^'+ arg.value)
-        model.find(query, {_id:0, name:1, email:1}).exec()
+        query[arg.field] = new RegExp('^' + arg.value)
+        model.find(query, { _id: 0, name: 1, email: 1 }).exec()
             .then(note => {
                 if (note) {
                     console.log(note);

@@ -40,17 +40,9 @@ exports.findAll = async (req, res) => {
 
 };
 
-exports.findAllWhere = async (req, res) => {
+exports.ping = async (req, res) => {
 
-    await Note.find()
-        .then(notes => {
-            res.send(notes);
-            console.log(notes)
-        }).catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occurred while retrieving notes."
-            });
-        });
+    console.log(req.params.time);
 
 };
 
