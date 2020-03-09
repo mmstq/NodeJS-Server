@@ -172,6 +172,7 @@ router.post('/signup', (req, res, next) => {
 });
 
 router.post('/login', (req, res, next) => {
+    console.log(req.body);
     User.findOne({ email: req.body.email }).exec()
         .then(user => {
             if (user.length < 1) {

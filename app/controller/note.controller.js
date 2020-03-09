@@ -27,7 +27,6 @@ exports.create = async (req, res) => {
 };
 
 exports.findAll = async (req, res) => {
-
     await Note.find()
         .then(notes => {
             res.send(notes);
@@ -37,7 +36,6 @@ exports.findAll = async (req, res) => {
                 message: err.message || "Some error occurred while retrieving notes."
             });
         });
-
 };
 
 exports.ping = async (req, res) => {
@@ -67,8 +65,6 @@ exports.findOne = async (req, res) => {
                 message: "Error retrieving note with id " + req.params.noteId
             });
         });
-
-
 };
 
 // Update a note identified by the noteId in the request
