@@ -175,7 +175,7 @@ router.post('/login', (req, res, next) => {
     console.log(req.body.username, req.body.password);
     User.findOne({ username: req.body.username }).exec()
         .then(user => {
-            if (user) {
+            if (!user) {
                 return res.status(HttpStatus.NOT_FOUND).json({
                     message: 'No user associated with this email'
                 });
