@@ -173,7 +173,7 @@ router.post('/signup', (req, res, next) => {
 
 router.post('/login', (req, res, next) => {
     console.log(req.body.email, req.body.password);
-    User.findOne({ email: req.body.email }).exec()
+    User.findOne({ username: req.body.username }).exec()
         .then(user => {
             if (user.length < 1) {
                 return res.status(HttpStatus.NOT_FOUND).json({
