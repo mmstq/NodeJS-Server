@@ -4,7 +4,13 @@ exports.create = async (req, res) => {
 
     if (!req.body.content) {
         return res.status(400).send({
-            message: 'Note cannot be empty'
+            message: 'Note content cannot be empty'
+        });
+    }
+
+    if (!req.body.title) {
+        return res.status(400).send({
+            message: 'Note title cannot be empty'
         });
     }
 
@@ -14,6 +20,7 @@ exports.create = async (req, res) => {
     });
 
     await note.save().then(data => {
+        console.log(data)
         res.status(201).json({
             message: "Note added to database"
         });
