@@ -19,10 +19,11 @@ exports.create = async (req, res) => {
         content: req.body.content
     });
 
-    await note.save().then(data => {
-        console.log(data)
+    await note.save().then(note => {
+        console.log(note)
         res.status(201).json({
-            message: "Note added to database"
+            message: "Note added to database",
+            note: note
         });
     }).
     catch(err => {
