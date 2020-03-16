@@ -8,10 +8,7 @@ const NoteSchema = mongoose.Schema({
         default: "Untitled Note"
     },
     content: String,
-    time: {
-        type: String,
-        default: moment(new Date(), "YYYY-MM-DD HH:mm").fromNow()
-    }
+    time: String
 });
 
 module.exports = mongoose.model('Note', NoteSchema);

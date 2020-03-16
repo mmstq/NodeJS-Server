@@ -16,7 +16,8 @@ exports.create = async (req, res) => {
 
     const note = new Note({
         title: req.body.title,
-        content: req.body.content
+        content: req.body.content,
+        time: req.body.time
     });
 
     await note.save().then(note => {
