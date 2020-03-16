@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const dateFormat  = require('dateformat');
+const moment = require('moment')
 
 const NoteSchema = mongoose.Schema({
     title: {
@@ -9,7 +10,7 @@ const NoteSchema = mongoose.Schema({
     content: String,
     time: {
         type: String,
-        default: dateFormat(Date.now(), "ddd, dS mmm, yyyy, h:MM TT")
+        default: moment().format("ddd, dS mmm, yyyy, h:MM TT")
     }
 });
 
