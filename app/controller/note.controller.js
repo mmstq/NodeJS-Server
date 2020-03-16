@@ -33,7 +33,7 @@ exports.create = async (req, res) => {
 };
 
 exports.findAll = async (req, res) => {
-    await Note.find()
+    await Note.find().sort('-__v')
         .then(notes => {
             res.send(notes);
             console.log(notes)
