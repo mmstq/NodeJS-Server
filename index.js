@@ -48,8 +48,6 @@ app.post('/notes', checkAuth, notes.create);
 
 app.get('/notes', checkAuth, notes.findAll);
 
-app.get('/ping/:time', notes.ping);
-
 app.get('/notes/:noteId', checkAuth, notes.findOne);
 
 // Update a Note with noteId

@@ -43,12 +43,6 @@ exports.findAll = async (req, res) => {
         });
 };
 
-exports.ping = async (req, res) => {
-
-    console.log(req.params.time);
-
-};
-
 // Find a single note with a noteId
 exports.findOne = async (req, res) => {
 

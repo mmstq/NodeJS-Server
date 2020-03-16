@@ -9,7 +9,7 @@ const NoteSchema = mongoose.Schema({
     content: String,
     time: {
         type: String,
-        default: dateFormat(new Date(), "ddd, dS mmm, yyyy, h:MM TT")
+        default: dateFormat(Date.now(), "ddd, dS mmm, yyyy, h:MM TT")
     }
 });
 
