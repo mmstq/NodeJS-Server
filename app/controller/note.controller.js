@@ -40,7 +40,7 @@ exports.create = async (req, res) => {
 exports.findAll = async (req, res) => {
     await Note.find().sort('-time')
         .then(notes => {
-            res.status(httpCodes.OK).send({ message: notes, data: notes });
+            res.status(httpCodes.OK).send({ message: 'Fetched All Notes Successfully', data: notes });
         }).catch(err => {
             res.status(httpCodes.INTERNAL_SERVER_ERROR).send({
                 message: err.message || "Some error occurred while retrieving notes."
