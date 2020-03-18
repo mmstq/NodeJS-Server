@@ -92,8 +92,8 @@ router.put('/updatePassword/:userId', (req, res, next) => {
     console.log(req.body, req.params);
     bcrypt.hash(req.body.password, 10, (err, hash) => {
         if (err) {
-            return res.status(500).json({
-                error: err
+            return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+                error: err.message || 'Internal server error. Re-Try'
             });
         } else {
             User
@@ -110,8 +110,8 @@ router.put('/updatePassword/:userId', (req, res, next) => {
                 })
                 .catch(err => {
                     console.log(err);
-                    res.status(501).json({
-                        error: err
+                    res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+                        error: err.message || 'Internal server error. Re-Try'
                     });
                 });
         }
@@ -133,8 +133,8 @@ router.post('/signup', (req, res, next) => {
             } else {
                 bcrypt.hash(req.body.password, 10, (err, hash) => {
                     if (err) {
-                        return res.status(500).json({
-                            error: err
+                        return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+                            error: err.message || 'Internal server error. Re-Try'
                         });
                     } else {
                         const user = new User({
@@ -153,8 +153,8 @@ router.post('/signup', (req, res, next) => {
                             })
                             .catch(err => {
                                 console.log(err);
-                                res.status(501).json({
-                                    error: err
+                                res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+                                    error: err.message || 'Internal server error. Re-Try'
                                 });
                             });
                     }
@@ -163,8 +163,8 @@ router.post('/signup', (req, res, next) => {
         })
         .catch(err => {
             console.log(err);
-            res.status(501).json({
-                error: err
+            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+                error: err.message || 'Internal server error. Re-Try'
             });
 
         });
@@ -182,7 +182,7 @@ router.post('/login', (req, res, next) => {
             }
             bcrypt.compare(req.body.password, user.password, (err, resource) => {
                 if (err) {
-                    return res.status(404).json({
+                    return res.status(HttpStatus.NOT_FOUND).json({
                         message: 'Auth failed'
                     });
                 }
@@ -195,35 +195,35 @@ router.post('/login', (req, res, next) => {
                         process.env.BCRYPT_KEY, {
                         expiresIn: '3h'
                     });
-                    return res.status(200).json({
+                    return res.status(HttpStatus.ACCEPTED).json({
                         message: 'Auth Success',
                         token: token
                     });
                 }
-                return res.status(401).json({
+                return res.status(HttpStatus.UNAUTHORIZED).json({
                     message: 'Auth Failed'
                 });
             });
 
         })
         .catch(err => {
-            res.status(404).json({
-                message: err
+            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+                message: err.message || 'Internal server error. Re-Try'
             });
         });
 });
 
 router.delete('/:userId', (req, res, next) => {
     User.deleteOne({ _id: req.params.userId }).exec()
-        .then(result => {
-            res.status(200).json({
+        .then(_ => {
+            res.status(HttpStatus.OK).json({
                 message: 'User deleted'
             });
         })
         .catch(err => {
             console.log(err);
-            res.status(500).json({
-                error: err
+            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+                error: err.message || 'Internal server error. Re-Try'
             });
         });
 });
