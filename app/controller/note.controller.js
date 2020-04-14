@@ -5,11 +5,11 @@ const {spawn} = require('child_process');
 
 exports.getNotice = async (req, res) => {
     var dataToSend;
-    var script = '../scripts/scrapper.py'
     // spawn new child process to call the python script
-    const python = spawn('python', [script]);
+    const python = spawn('python', ['../scripts/scrapper.py']);
     // collect data from script
     python.stdout.on('data', function (data) {
+        console.log('data recieved')
         console.log(data);
         dataToSend = data.toString();
     });
