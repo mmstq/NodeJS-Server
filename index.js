@@ -48,6 +48,8 @@ app.post('/notes', checkAuth, notes.create);
 
 app.get('/notes', checkAuth, notes.findAll);
 
+app.get('/notice', notes.getNotice);
+
 app.get('/notes/:noteId', checkAuth, notes.findOne);
 
 // Update a Note with noteId

@@ -2,6 +2,24 @@ const Note = require('../models/note.model');
 const httpCodes = require('http-status-codes');
 
 
+exports.notice = async (req, res) => {
+    var dataToSend;
+    var script = '../scripts/scrapper.py'
+    // spawn new child process to call the python script
+    const python = spawn('python', [script]);
+    // collect data from script
+    python.stdout.on('data', function (data) {
+        console.log(data);
+        // dataToSend = data.toString();
+    });
+    // in close event we are sure that stream from child process is closed
+    python.on('close', (code) => {
+        console.log(`child process close all stdio with code ${code}`);
+        // send data to browser
+        // res.send(dataToSend)
+    });
+}
+
 exports.create = async (req, res) => {
 
     if (!req.body.content) {
