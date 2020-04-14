@@ -8,17 +8,22 @@ exports.getNotice = async (req, res) => {
     // spawn new child process to call the python script
     const python = spawn('python', ['../scripts/scrapper.py']);
     // collect data from script
-    python.stdout.on('data', function (data) {
-        console.log('data recieved')
-        console.log(data);
-        dataToSend = data.toString();
-    });
-    // in close event we are sure that stream from child process is closed
-    python.on('close', (code) => {
-        console.log(`child process close all stdio with code ${code}`);
-        // send data to browser
-         res.send(dataToSend)
-    });
+
+    let runPy = new Promise(function(success, failed){
+        python.stdout.on('data', function (data) {
+            console.log('data recieved')
+            console.log(data);
+            dataToSend = data.toString();
+        });
+        // in close event we are sure that stream from child process is closed
+        python.on('close', (code) => {
+            console.log(`child process close all stdio with code ${code}`);
+            // send data to browser
+             res.send(dataToSend)
+        });
+    }).catch(error=>{
+        console.log(error)
+    })
 }
 
 exports.create = async (req, res) => {
