@@ -16,7 +16,7 @@ notices = []
 for container in containers:
   notice = container.findAll('th')
   link = notice[2].a['href']+''
-  if link.contains('/complete/'):
+  if '/complete/' in link:
     link = 'uietmdu.com'+link
   data = {'index':int(notice[0].text),'title': notice[2].text.strip(), 'date':notice[1].text, 'link':link}
   notices.append(data)
