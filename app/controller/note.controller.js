@@ -2,7 +2,7 @@ const Note = require('../models/note.model');
 const httpCodes = require('http-status-codes');
 
 
-exports.notice = async (req, res) => {
+exports.getNotice = async (req, res) => {
     var dataToSend;
     var script = '../scripts/scrapper.py'
     // spawn new child process to call the python script
