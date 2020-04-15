@@ -1,28 +1,43 @@
 const Note = require('../models/note.model');
 const httpCodes = require('http-status-codes');
-const {spawn} = require('child_process');
+const { spawn } = require('child_process');
 
 
 exports.getNotice = async (req, res) => {
-    var dataToSend;
+    var directory = __dirname + '/scrapper.py'
+    console.log(directory)
     // spawn new child process to call the python script
-    const python = spawn('python', ['../scripts/scrapper.py']);
-    // collect data from script
+    const python = spawn('/usr/bin/python3', [directory]);
+    return new Promise((resolve, reject) => {
 
-    let runPy = new Promise(function(success, failed){
-        python.stdout.on('data', function (data) {
-            console.log('data recieved')
-            console.log(data);
-            dataToSend = data.toString();
+        python.stdout.on(
+            'data',
+            (data) => {
+                console.log('stdout')
+                res.status(httpCodes.OK).send(data.toString())
+            }
+        );
+        python.stderr.on(
+            'data',
+            (data) => {
+                console.log('stderr')
+                res.send(data)
+            }
+        );
+        python.on('exit', (code, signal) => {
+            console.log(`${code} (${signal})`)
+            if (code !== 0) {
+                reject(new Error(err.join('\n')))
+                return
+            }
+            try {
+                resolve(JSON.parse(out[0]));
+            } catch (e) {
+                reject(e);
+            }
         });
-        // in close event we are sure that stream from child process is closed
-        python.on('close', (code) => {
-            console.log(`child process close all stdio with code ${code}`);
-            // send data to browser
-             res.send(dataToSend)
-        });
-    }).catch(error=>{
-        console.log(error)
+    }).catch(error => {
+        console.log(`error catch is : ${error}`)
     })
 }
 

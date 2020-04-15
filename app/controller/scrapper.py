@@ -1,6 +1,7 @@
 from urllib.request import urlopen as uReq
 from bs4 import BeautifulSoup as soup
 import sys
+import json
 
 my_url = 'http://uietmdu.com/Pages/NoticeArchived'
 uClient = uReq(my_url)
@@ -15,9 +16,9 @@ for container in containers:
   notice = container.findAll('th')
   link = notice[2].a['href']+''
   if '/complete/' in link:
-    link = 'uietmdu.com'+link
-  data = {'index':int(notice[0].text),'title': notice[2].text.strip(), 'date':notice[1].text, 'link':link}
+    link = 'http://uietmdu.com'+link
+  data = {"index":int(notice[0].text),"title": notice[2].text.strip(), "date":notice[1].text, "link":link.strip()}
   notices.append(data)
-print(notices)
+print(json.dumps(notices))
 sys.stdout.flush()
 
