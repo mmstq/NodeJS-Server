@@ -7,7 +7,7 @@ exports.getNotice = async (req, res) => {
     var directory = __dirname + '/scrapper.py'
     console.log(directory)
     // spawn new child process to call the python script
-    const python = spawn('/usr/bin/python3', [directory]);
+    const python = spawn(__dirname+'/env/bin/python3', [directory]);
     return new Promise((resolve, reject) => {
 
         python.stdout.on(
