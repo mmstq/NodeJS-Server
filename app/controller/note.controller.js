@@ -7,12 +7,13 @@ exports.getNotice = async (req, res) => {
     var directory = __dirname + '/scrapper.py'
     console.log(directory)
     // spawn new child process to call the python script
-    const python = spawn('../controller/env/bin/python3', [directory]);
+    const python = spawn(__dirname + '/env/bin/python3', [directory]);
     return new Promise((resolve, reject) => {
-
+        var out = []
         python.stdout.on(
             'data',
             (data) => {
+                out.push(data.toString());
                 console.log('stdout')
                 res.status(httpCodes.OK).send(data.toString())
             }
@@ -23,7 +24,6 @@ exports.getNotice = async (req, res) => {
             (data) => {
                 err.push(data.toString())
                 console.log('stderr')
-                res.send(data)
             }
         );
         python.on('exit', (code, signal) => {
