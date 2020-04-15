@@ -1,5 +1,5 @@
 from urllib.request import urlopen as uReq
-from bs4 import BeautifulSoup as soup
+from  import BeautifulSoup as soup
 import sys
 import json
 
