@@ -16,7 +16,8 @@ for container in containers:
   notice = container.findAll('th')
   link = notice[2].a['href']+''
   if '/complete/' in link:
-    link = 'http://uietmdu.com'+link
+    address = link.split('/')
+    link = 'http://uietmdu.com/Files/'+address[2]+'.pdf'
   data = {"index":int(notice[0].text),"title": notice[2].text.strip(), "date":notice[1].text, "link":link.strip()}
   notices.append(data)
 print(json.dumps(notices))
