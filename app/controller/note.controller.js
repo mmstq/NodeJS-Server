@@ -4,7 +4,8 @@ const { spawn } = require('child_process');
 
 
 exports.getNotice = async (req, res) => {
-    var directory = __dirname + '/scrapper.py'
+    console.log(req)
+    var directory = __dirname +"/"+ req.query.from+".py"
     console.log(directory)
     // spawn new child process to call the python script
     const python = spawn(__dirname + '/env/bin/python3', [directory]);
@@ -14,7 +15,6 @@ exports.getNotice = async (req, res) => {
             'data',
             (data) => {
                 out.push(data.toString());
-                console.log('stdout')
                 res.status(httpCodes.OK).send(data.toString())
             }
         );
@@ -23,7 +23,6 @@ exports.getNotice = async (req, res) => {
             'data',
             (data) => {
                 err.push(data.toString())
-                console.log('stderr')
             }
         );
         python.on('exit', (code, signal) => {
