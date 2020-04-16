@@ -4,7 +4,6 @@ const { spawn } = require('child_process');
 
 
 exports.getNotice = async (req, res) => {
-    console.log(req)
     var directory = __dirname +"/"+ req.query.from+".py"
     console.log(directory)
     // spawn new child process to call the python script
