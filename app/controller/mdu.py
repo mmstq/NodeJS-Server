@@ -14,7 +14,7 @@ uClient = uReq(my_url)
 page_html = uClient.read()
 uClient.close()
 
-page_soup = soup(page_html, "lxml")
+page_soup = soup(page_html, "html.parser")
 # chrome_options = Options()
 # chrome_options.add_argument('--no-sandbox')
 # chrome_options.add_argument('--headless')
