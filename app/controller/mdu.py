@@ -21,7 +21,7 @@ for i in range(5):
   driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", scr1)
   time.sleep(0.7)
 
-page_soup = soup(driver.page_source, "lxml")
+page_soup = soup(driver.page_source, "html.parser")
 
 containers = page_soup.findAll("tr", {"class":"dxgvDataRow_iOS"})
 notices = []
