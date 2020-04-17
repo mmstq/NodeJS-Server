@@ -7,11 +7,10 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
 
-# chrome_options = Options()
-# chrome_options.add_argument('--no-sandbox')
-# chrome_options.add_argument('--headless')
-# driver = webdriver.Chrome(options=chrome_options)
-driver = webdriver.FireFox()
+chrome_options = Options()
+chrome_options.add_argument('--no-sandbox')
+chrome_options.add_argument('--headless')
+driver = webdriver.Chrome(options=chrome_options)
 
 driver.get('http://mdu.ac.in/Admin/EventPage.aspx?id=1024')
 scr1 = driver.find_element_by_xpath('/html/body/div[2]/form/div[7]/div[2]/div[2]/div[2]/table/tbody/tr/td/div[4]')
