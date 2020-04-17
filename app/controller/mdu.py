@@ -15,7 +15,7 @@ chrome_options.add_argument('--disable-gpu')
 chrome_options.add_argument('--no-sandbox')
 chrome_options.add_argument('--headless')
 chrome_options.binary_location = GOOGLE_CHROME_PATH
-driver = webdriver.Chrome(execution_path=CHROMEDRIVER_PATH,options=chrome_options)
+driver = webdriver.Chrome(CHROMEDRIVER_PATH,options=chrome_options)
 
 driver.get('http://mdu.ac.in/Admin/EventPage.aspx?id=1024')
 scr1 = driver.find_element_by_xpath('/html/body/div[2]/form/div[7]/div[2]/div[2]/div[2]/table/tbody/tr/td/div[4]')
