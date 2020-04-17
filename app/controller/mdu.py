@@ -6,7 +6,7 @@ import random
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
-
+#ji hsdf
 GOOGLE_CHROME_PATH = '/app/.apt/usr/bin/google_chrome'
 CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
 
