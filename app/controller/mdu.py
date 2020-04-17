@@ -7,11 +7,15 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
 
-# chrome_options = Options()
-# chrome_options.add_argument('--no-sandbox')
-# chrome_options.add_argument('--headless')
-driver = webdriver.PhantomJS()
-# Chrome('env/bin/chromedriver',options=chrome_options)
+GOOGLE_CHROME_PATH = '/app/.apt/usr/bin/google_chrome'
+CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
+
+chrome_options = Options()
+chrome_options.add_argument('--disable-gpu')
+chrome_options.add_argument('--no-sandbox')
+chrome_options.add_argument('--headless')
+chrome_options.binary_location = GOOGLE_CHROME_PATH
+driver = webdriver.Chrome(execution_path=CHROMEDRIVER_PATH,options=chrome_options)
 
 driver.get('http://mdu.ac.in/Admin/EventPage.aspx?id=1024')
 scr1 = driver.find_element_by_xpath('/html/body/div[2]/form/div[7]/div[2]/div[2]/div[2]/table/tbody/tr/td/div[4]')
