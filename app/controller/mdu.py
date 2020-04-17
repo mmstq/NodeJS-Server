@@ -2,18 +2,19 @@ from bs4 import BeautifulSoup as soup
 import sys
 import json
 import time
+import os
 import random
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
 CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
-GOOGLE_CHROME_PATH = '/app/.apt/usr/bin/google_chrome'
+chrome_bin = os.environ.get('GOOGLE_CHROME_SHIM', None)
 
 chrome_options = Options()
 chrome_options.add_argument('--disable-gpu')
 chrome_options.add_argument('--no-sandbox')
 chrome_options.add_argument('--headless')
-chrome_options.binary_location = GOOGLE_CHROME_PATH
+chrome_options.binary_location = chrome_bin
 driver = webdriver.Chrome(CHROMEDRIVER_PATH,options=chrome_options)
 
 driver.get('http://mdu.ac.in/Admin/EventPage.aspx?id=1024')
