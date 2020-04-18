@@ -103,6 +103,10 @@ socketIO.on('connection', (socket) => {
     });
 });
 
+// setInterval(function(){
+//     console.log('i am running')
+// }, 3000)
+
 // listen for requests
 http.listen(PORT, () => {
     console.log("Server is listening on port: " + PORT);

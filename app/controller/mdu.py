@@ -1,32 +1,14 @@
+from urllib.request import urlopen as uReq
 from bs4 import BeautifulSoup as soup
 import sys
 import json
-import time
-import os
-import random
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 
-CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
-chrome_bin = os.environ.get('GOOGLE_CHROME_SHIM', None)
+my_url = 'http://mdu.ac.in/Admin/EventPage.aspx?id=1024'
+uClient = uReq(my_url)
+page_html = uClient.read()
+uClient.close()
 
-chrome_options = Options()
-chrome_options.add_argument('--disable-gpu')
-chrome_options.add_argument('--no-sandbox')
-chrome_options.add_argument('--headless')
-chrome_options.binary_location = chrome_bin
-driver = webdriver.Chrome(CHROMEDRIVER_PATH,options=chrome_options)
-
-driver.get('http://mdu.ac.in/Admin/EventPage.aspx?id=1024')
-scr1 = driver.find_element_by_xpath('/html/body/div[2]/form/div[7]/div[2]/div[2]/div[2]/table/tbody/tr/td/div[4]')
-driver.execute_script("arguments[0].scrollIntoView(true);", scr1)
-time.sleep(0.5)
-for i in range(5):
-  driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", scr1)
-  time.sleep(0.7)
-
-page_soup = soup(driver.page_source, "html.parser")
-
+page_soup = soup(page_html, "html.parser")
 containers = page_soup.findAll("tr", {"class":"dxgvDataRow_iOS"})
 notices = []
 
