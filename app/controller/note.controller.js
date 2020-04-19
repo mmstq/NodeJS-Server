@@ -25,7 +25,6 @@ exports.getNotice = async (req, res) => {
             }
         );
         python.on('exit', (code, signal) => {
-            console.log(`${code} (${signal})`)
             if (code !== 0) {
                 reject(new Error(err.join('\n')))
                 return

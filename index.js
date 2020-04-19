@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const user = require('./app/routes/user.routes');
 const checkAuth = require('./middleware/check-auth');
 const model = require('./app/models/users.model')
-const lodash = require('lodash')
+const script = require('./app/scripts/scrapper')
 
 
 // create express app
@@ -49,6 +49,8 @@ app.post('/notes', checkAuth, notes.create);
 app.get('/notes', checkAuth, notes.findAll);
 
 app.get('/notice', notes.getNotice);
+
+app.get('/test', script);
 
 app.get('/notes/:noteId', checkAuth, notes.findOne);
 
@@ -103,11 +105,6 @@ socketIO.on('connection', (socket) => {
     });
 });
 
-// setInterval(function(){
-//     console.log('i am running')
-// }, 3000)
-
-// listen for requests
 http.listen(PORT, () => {
     console.log("Server is listening on port: " + PORT);
 });
