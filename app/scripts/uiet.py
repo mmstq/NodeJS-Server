@@ -8,7 +8,7 @@ uClient = uReq(my_url)
 page_html = uClient.read()
 uClient.close()
 
-page_soup = soup(page_html, "lxml")
+page_soup = soup(page_html, "html.parser")
 containers = page_soup.findAll("tr")
 containers.pop(0)
 notices = []
@@ -22,4 +22,3 @@ for i in range(30):
   notices.append(data)
 print(json.dumps(notices))
 sys.stdout.flush()
-

@@ -8,7 +8,7 @@ uClient = uReq(my_url)
 page_html = uClient.read()
 uClient.close()
 
-page_soup = soup(page_html, "lxml")
+page_soup = soup(page_html, "html.parser")
 containers = page_soup.findAll("tr", {"class":"dxgvDataRow_iOS"})
 notices = []
 
