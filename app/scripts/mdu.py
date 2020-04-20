@@ -21,5 +21,3 @@ for container in containers:
   notices.append(data)
 print(json.dumps(notices))
 sys.stdout.flush()
-
-
