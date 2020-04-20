@@ -24,7 +24,6 @@
     "dateformat": "^3.0.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "fcm-node": "^1.5.2",
     "googleapis": "^47.0.0",
     "http": "0.0.0",
     "http-status-codes": "^1.4.0",
