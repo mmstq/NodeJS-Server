@@ -12,8 +12,8 @@ page_soup = soup(page_html, "html.parser")
 containers = page_soup.findAll("tr")
 containers.pop(0)
 notices = []
-for container in containers:
-  notice = container.findAll('th')
+for i in range(30):
+  notice = containers[i].findAll('th')
   link = notice[2].a['href']+''
   if '/complete/' in link:
     address = link.split('/')
