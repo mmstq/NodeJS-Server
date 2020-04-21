@@ -17,6 +17,8 @@ exports.sendMsg = (title, body, link) => {
             link: link
         }
     };
+    //    const registrationToken = 'fOMqeAI7L20:APA91bEYtnY-mshByqGEWIOwJW78vGHOW8C2oQSVAshXfy6ypscpE_msdjO1ETE1ge3o9po2Jv3HDPs2BdqMSQCs2QNNwM1ItIWs0bulJKIDt1tYeCMpWcBO_0i1I03Ou7owtkaRmJr6'
+
 
     const options = {
         priority: "high",
