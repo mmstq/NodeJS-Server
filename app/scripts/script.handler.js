@@ -22,7 +22,7 @@ exports.getNotice = async (req, res) => {
                 } else {
                     for (var i = 0; i < 5; i++) {
                         if (list[i]['link'] != jsonList[i]['link']) {
-                            msg.sendMsg('UIET', jsonList[i]['title'], jsonList[i]['link'])
+                            msg.sendMsg(req.query.from.toUpperCase(), jsonList[i]['title'], jsonList[i]['link'])
                         }
                     }
                 }
