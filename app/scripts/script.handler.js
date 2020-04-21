@@ -5,6 +5,7 @@ var list = []
 
 
 exports.getNotice = async (req, res) => {
+    console.log('hi')
     var directory = __dirname + "/" + req.query.from + ".py"
     console.log(directory)
     // spawn new child process to call the python script
