@@ -24,6 +24,7 @@ app.use(bodyParser.json())
 mongoose.Promise = global.Promise;
 mongoose.set('useCreateIndex', true);
 
+//hgjhgj
 mongoose.connect(dbConfig.url, {
     useNewUrlParser: true,
     useUnifiedTopology: true
