@@ -34,10 +34,10 @@ mongoose.connect(dbConfig.url, {
     process.exit();
 });
 
-setInterval(function () {
-    console.log('i am runnig u happy now :(')
-    script.getNotice()
-}, 300000)
+// setInterval(function () {
+//     console.log('i am runnig u happy now :(')
+//     script.getNotice()
+// }, 300000)
 
 app.use('/user', user);
 app.post('/notes', checkAuth, notes.create);

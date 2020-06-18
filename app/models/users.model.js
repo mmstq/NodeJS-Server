@@ -14,7 +14,7 @@ const UserSchema = mongoose.Schema({
     username: Joi.string().min(3).max(10).required(),
     name: Joi.ref('username'),
     favorite: { type: Array, default: [] },
-    cards: { type: Array, default: [] },
+    address: { type: Array, default: [] },
     joined: { type: String, default: dateformat(new Date()) }
 });
 
