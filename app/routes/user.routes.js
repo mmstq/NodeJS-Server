@@ -63,16 +63,18 @@ router.post('/forgotPassword', (req, res, next) => {
             if (user) {
                 const otp = generateOTP();
                 sendEmail(user.email, otp);
-                res.status(HttpStatus.OK).json({user:{
-                    username: user.username,
-                    name: user.name,
-                    email: user.email,
-                    password:''
-                },
-            extra:{
-                OTP: otp,
-                id: user.id,
-            }});
+                res.status(HttpStatus.OK).json({
+                    user: {
+                        username: user.username,
+                        name: user.name,
+                        email: user.email,
+                        password: ''
+                    },
+                    extra: {
+                        OTP: otp,
+                        id: user.id,
+                    }
+                });
             } else {
 
                 res.status(HttpStatus.NOT_FOUND).json({
@@ -100,9 +102,9 @@ router.put('/updatePassword/:userId', (req, res, next) => {
                 .findByIdAndUpdate(req.params.userId, {
                     password: hash
                 },
-                {
-                    new: true
-                }).exec()
+                    {
+                        new: true
+                    }).exec()
                 .then(result => {
                     res.status(HttpStatus.CREATED).json({
                         message: 'Password reset successful'
@@ -197,7 +199,8 @@ router.post('/login', (req, res, next) => {
                     });
                     return res.status(HttpStatus.ACCEPTED).json({
                         message: 'Auth Success',
-                        token: token
+                        token: token,
+                        user: user
                     });
                 }
                 return res.status(HttpStatus.UNAUTHORIZED).json({
@@ -229,4 +232,3 @@ router.delete('/:userId', (req, res, next) => {
 });
 
 module.exports = router;
-

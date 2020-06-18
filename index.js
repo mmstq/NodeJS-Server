@@ -1,6 +1,7 @@
 require('dotenv').config()
 const PORT = process.env.PORT || 5000
 const express = require('express')
+const httpRequest = require('https')
 const bodyParser = require('body-parser')
 const user = require('./app/routes/user.routes')
 const checkAuth = require('./middleware/check-auth')
@@ -45,7 +46,17 @@ app.get('/notice', script.getNotice);
 app.get('/notes/:noteId', checkAuth, notes.findOne);
 app.put('/notes/:noteId', checkAuth, notes.update);
 app.delete('/notes/:noteId', checkAuth, notes.delete);
-app.get('/', (req, res) => res.sendFile('./views/pages/pageFirst.html', { root: '.' }));
+app.get('/', (req, res) => {
+    res.sendFile('./views/pages/pageFirst.html', { root: '.' })
+    const options = {
+        method: 'GET',
+        host: 'https://mmstq.herokuapp.com',
+        path: '/'
+    }
+    const r = httpRequest.request(options, res => {
+
+    })
+});
 
 
 socketIO.on('connection', (socket) => {

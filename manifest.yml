@@ -1,0 +1,5 @@
+---
+applications:
+ - name: nodeserver
+   host: zuko
+   memory: 256M
