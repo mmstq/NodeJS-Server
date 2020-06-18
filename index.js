@@ -6,7 +6,6 @@ const bodyParser = require('body-parser')
 const user = require('./app/routes/user.routes')
 const checkAuth = require('./middleware/check-auth')
 const model = require('./app/models/users.model')
-const script = require('./app/scripts/script.handler')
 const notes = require('./app/controller/note.controller')
 const app = express();
 const dbConfig = require('./config/database.config')
@@ -43,7 +42,6 @@ mongoose.connect(dbConfig.url, {
 app.use('/user', user);
 app.post('/notes', checkAuth, notes.create);
 app.get('/notes', checkAuth, notes.findAll);
-app.get('/notice', script.getNotice);
 app.get('/notes/:noteId', checkAuth, notes.findOne);
 app.put('/notes/:noteId', checkAuth, notes.update);
 app.delete('/notes/:noteId', checkAuth, notes.delete);
