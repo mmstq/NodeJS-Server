@@ -11,7 +11,6 @@ const app = express();
 const dbConfig = require('./config/database.config')
 const mongoose = require('mongoose')
 const http = require('http').createServer(app);
-const socketIO = require('socket.io')(http)
 
 
 app.use(bodyParser.urlencoded({
@@ -47,56 +46,48 @@ app.put('/notes/:noteId', checkAuth, notes.update);
 app.delete('/notes/:noteId', checkAuth, notes.delete);
 app.get('/', (req, res) => {
     res.sendFile('./views/pages/pageFirst.html', { root: '.' })
-    const options = {
-        method: 'GET',
-        host: 'https://mmstq.herokuapp.com',
-        path: '/'
-    }
-    const r = httpRequest.request(options, res => {
-
-    })
 });
 
 
-socketIO.on('connection', (socket) => {
-    console.log('connected');
-    socket.on('user_query', (args) => {
-        const arg = JSON.parse(args)
-        // var regex = RegExp("/.*" + arg.va + ".*/")
-        console.log(`${arg.field} : ${arg.value}`)
-        const query = {}
-        query[arg.field] = new RegExp('^' + arg.value)
-        model.find(query, { _id: 0, name: 1, email: 1 }).exec()
-            .then(note => {
-                if (note) {
-                    console.log(note);
-                    socket.emit('search_result', note);
-                } else {
-                    console.log('No result, Sorry')
-                    socket.emit('search_result', 'No result found')
-                }
-            }).catch(err => {
-                console.log(err);
-            });
-    })
-    socket.on('userNameCheck', (username) => {
-        console.log(username);
-        model.findOne({ username: username }, 'username').exec()
-            .then(username => {
-                if (username) {
-                    console.log(username);
-                    socket.emit('result', true);
-                } else {
-                    console.log('not found username');
-                    socket.emit('result', false)
-                }
+// socketIO.on('connection', (socket) => {
+//     console.log('connected');
+//     socket.on('user_query', (args) => {
+//         const arg = JSON.parse(args)
+//         // var regex = RegExp("/.*" + arg.va + ".*/")
+//         console.log(`${arg.field} : ${arg.value}`)
+//         const query = {}
+//         query[arg.field] = new RegExp('^' + arg.value)
+//         model.find(query, { _id: 0, name: 1, email: 1 }).exec()
+//             .then(note => {
+//                 if (note) {
+//                     console.log(note);
+//                     socket.emit('search_result', note);
+//                 } else {
+//                     console.log('No result, Sorry')
+//                     socket.emit('search_result', 'No result found')
+//                 }
+//             }).catch(err => {
+//                 console.log(err);
+//             });
+//     })
+//     socket.on('userNameCheck', (username) => {
+//         console.log(username);
+//         model.findOne({ username: username }, 'username').exec()
+//             .then(username => {
+//                 if (username) {
+//                     console.log(username);
+//                     socket.emit('result', true);
+//                 } else {
+//                     console.log('not found username');
+//                     socket.emit('result', false)
+//                 }
 
-            }).catch(err => {
-                console.log(err);
-                socket.emit('result', false);
-            });
-    });
-})
+//             }).catch(err => {
+//                 console.log(err);
+//                 socket.emit('result', false);
+//             });
+//     });
+// })
 
 http.listen(PORT, () => {
     console.log("Server is running on port: " + PORT);

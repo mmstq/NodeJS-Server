@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Notes App",
   "engines": {
-    "node": "12.x"
+    "node": "12.18.1"
   },
   "main": "index.js",
   "scripts": {
@@ -26,15 +26,13 @@
     "express": "^4.17.1",
     "firebase-admin": "^8.10.0",
     "googleapis": "^47.0.0",
-    "http": "0.0.0",
+    "http": "0.0.1-security",
     "http-status-codes": "^1.4.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
     "mongoose": "^5.8.6",
     "nodemailer": "^6.4.2",
-    "nodemon": "^2.0.4",
-    "selenium-webdriver": "^4.0.0-alpha.7",
-    "socket.io": "^2.3.0"
+    "nodemon": "^2.0.4"
   },
   "repository": {
     "type": "git",
