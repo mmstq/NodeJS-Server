@@ -94,8 +94,8 @@ router.put('/updatePassword/:userId', (req, res, next) => {
     console.log(req.body, req.params);
     bcrypt.hash(req.body.password, 10, (err, hash) => {
         if (err) {
-            return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
-                error: err.message || 'Internal server error. Re-Try'
+            return res.status(HttpStatus.BAD_REQUEST).json({
+                error: err.message || 'Bad Request. Re-Try'
             });
         } else {
             User
@@ -112,8 +112,8 @@ router.put('/updatePassword/:userId', (req, res, next) => {
                 })
                 .catch(err => {
                     console.log(err);
-                    res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
-                        error: err.message || 'Internal server error. Re-Try'
+                    res.status(HttpStatus.BAD_REQUEST).json({
+                        error: err.message || 'Bad Request. Re-Try'
                     });
                 });
         }
@@ -135,7 +135,7 @@ router.post('/signup', (req, res, next) => {
             } else {
                 bcrypt.hash(req.body.password, 10, (err, hash) => {
                     if (err) {
-                        return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+                        return res.status(HttpStatus.BAD_REQUEST).json({
                             error: err.message || 'Internal server error. Re-Try'
                         });
                     } else {
@@ -155,7 +155,7 @@ router.post('/signup', (req, res, next) => {
                             })
                             .catch(err => {
                                 console.log(err);
-                                res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+                                res.status(HttpStatus.BAD_REQUEST).json({
                                     error: err.message || 'Internal server error. Re-Try'
                                 });
                             });
@@ -165,14 +165,11 @@ router.post('/signup', (req, res, next) => {
         })
         .catch(err => {
             console.log(err);
-            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+            res.status(HttpStatus.BAD_REQUEST).json({
                 error: err.message || 'Internal server error. Re-Try'
             });
-
         });
-
 });
-
 router.post('/login', (req, res, next) => {
     console.log(req.body.username, req.body.password);
     User.findOne({ username: req.body.username }).exec()
@@ -210,8 +207,8 @@ router.post('/login', (req, res, next) => {
 
         })
         .catch(err => {
-            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
-                message: err.message || 'Internal server error. Re-Try'
+            res.status(HttpStatus.BAD_REQUEST).json({
+                message: err.message || 'Bad Request. Re-Try'
             });
         });
 });
@@ -225,8 +222,8 @@ router.delete('/:userId', (req, res, next) => {
         })
         .catch(err => {
             console.log(err);
-            res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
-                error: err.message || 'Internal server error. Re-Try'
+            res.status(HttpStatus.BAD_REQUEST).json({
+                error: err.message || 'Bad Request. Re-Try'
             });
         });
 });
